@@ -10,17 +10,19 @@
 
     <style>
 
-      .description {
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 40px;
-        padding-right: 40px;
-        text-align: left;
-        background: #ececec;
-        color: black;
-        font-size:16px;
-      }
       .hidden {display: none;}
+
+      a:link {
+        color: blue;
+        background-color: transparent;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: blue;
+        background-color: transparent;
+        text-decoration: underline;
+      }
 
     </style>
 
@@ -40,58 +42,81 @@
     </section>
 
 
-    <div class="container">
-      <div class="pb-3">
+    <div class="col-lg-8 mx-auto">
+      <!-- plot1, start with this one visible -->
+      <div id="plot-1" class="plot">
+        <div id="vis1">
+        </div>
+      </div>
+
+      <!-- plot2, can be made visible by dropdown menu -->
+      <div id="plot-2" class="hidden plot">
+        <div id="vis2">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 mx-auto">
+      <div class="row pb-3">
+
         <!-- to select y-axis -->
-        <select id="plots" class="selectpicker col-md-6 offset-md-2" aria-label="Default select example" onchange="handleChange()">
+        <select id="plots" class="btn btn-light dropdown-toggle w-auto" onchange="handleChange()">
           <option value="plot-1">Adaptive mutations per codon per year</option>
           <option value="plot-2">Adaptive mutations per year</option>
         </select>
+
       </div>
+    </div>
 
 
-      <div class="row">
-        <!-- plot1, start with this one visible -->
-        <div id="plot-1" class="plot">
-          <div id="vis1", class="col-md-6 offset-md-2">
-          </div>
-        </div>
 
-        <!-- plot2, can be made visible by dropdown menu -->
-        <div id="plot-2" class="hidden plot">
-          <div id="vis2" class="col-md-6 offset-md-2">
-          </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="mb-4">
+          <hr style="width=50%">
         </div>
       </div>
+    </div>
 
 
-      <!-- <div class="description">
+    <div class="row">
+      <div class="col-lg-8 mx-auto pt-5">
 
-        <h4>More about this project</h4>
-        <p>Adaptive evolution is evolution in response to a selective pressure that increases fitness.
+        <h5>More about this project</h5>
+        <p class="text-muted">Adaptive evolution is evolution in response to a selective pressure that increases fitness.
           In the context of viruses, the rate at which a protein evolves adaptively speaks to its evolutionary potential to undergo antigenic drift (evade antibody recognition), cross-species barriers, or escape drugs.
           In particular, a high rate of adaptation in a virus that has been endemic in humans for decades indicates that this virus is undergoing continuous adaptation, likely stemming from a changing selective landscape caused by an evolutionary arms race between the virus and its host.
           Because viral surface proteins are the primary targets of neutralizing antibodies, high rates of adaptation in viral surface protein typically indicates antigenic drift.<p>
 
-        <p>Comparing rates of adaptation in the surface proteins of different viruses allows us to hypothesize which viruses evolve antigenically and which do not.
+        <p class="text-muted">Comparing rates of adaptation in the surface proteins of different viruses allows us to hypothesize which viruses evolve antigenically and which do not.
           From this comparison, we can also glean insight into the prevalence or rarity of antigenic evolution amongst RNA viruses that infect humans.
           Additionally, we can compare lesser-studied viruses to ones that are better-understood to extrapolate real-world implications of varying rates of adaptation.<p>
 
-        <p>Each of these viruses contains a polymerase, which we expect to be relatively conserved, as well as surface protein (or protein subunit) that binds to a host-cell receptor.
+        <p class="text-muted">Each of these viruses contains a polymerase, which we expect to be relatively conserved, as well as surface protein (or protein subunit) that binds to a host-cell receptor.
           This plot compares the rates of adaptation within these genes.<p>
 
-        <h4>Which viruses are included?</h4>
-        <p>This panel focuses on viruses with an RNA genome (positive- or negative-sense) that are endemic in humans, and for which there are a minimum of 50 high-quality sequences spanning at least 20 years of time.<p>
+        <h5>Which viruses are included?</h5>
+        <p class="text-muted">This panel focuses on viruses with an RNA genome (positive- or negative-sense) that are endemic in humans, and for which there are a minimum of 50 high-quality sequences spanning at least 20 years of time.<p>
 
-        <h4>How are the rates calculated?</h4>
+        <h5>How are the rates calculated?</h5>
+        <p class="text-muted">Rates of adaptation here are calculated according to an adaptation of the McDonald-Krietman test laid out in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3163432/">Bhatt et al, 2011</a>.
+          This method divides an alignment of sequences into time windows and then calculates the number of adaptive mutations that have accumulated between the ancestral sequence and each subsequent time point.
+          The time points are then fit by linear regression and the rate of adaptation is the slope.</p>
 
-        <h4>What do these rates indicate about duration of immunity from natural infection or vaccination?</h4>
+        <p class="text-muted">The number of adaptive mutations is the number of fixations and high-frequency polymorphisms (present at 75% or higher in the population) that exceed the neutral expectation.
+          The neutral expectation is defined by synonynonymous and mid-frequency nonsynonymous mutations.
+          Specifically, the number of adaptive mutations \( a \) is given by \(a = r_f +r_h - (s_f + s_h){r_m \over s_m} \), where \( r_f \), \( r_h \) and \( r_m \) are counts of replacement (nonsynonymous) fixations, high-frequency polymorphisms, and mid-frequency polymorphisms, respectively, and \( s_f \), \( s_h \) and \( s_m \) are counts of silent (synonymous) mutations in these frequency classes.
+          These counts are obtained by walking through each nucleotide position in the sequence and comparing the outgroup to the alignment.</p>
 
+        <h5>What do these rates indicate about duration of immunity from natural infection or vaccination?</h5>
 
-      </div> -->
+      </div>
+    </div>
 
       <!-- to import javascript encoding plots -->
       <script src='./assets/main_plots.js'></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       <!-- for bootstrap -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
