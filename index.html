@@ -92,14 +92,20 @@
           From this comparison, we can also glean insight into the prevalence or rarity of antigenic evolution amongst RNA viruses that infect humans.
           Additionally, we can compare lesser-studied viruses to ones that are better-understood to extrapolate real-world implications of varying rates of adaptation.<p>
 
+        <h5>How to use this site</h5>
         <p class="text-muted">Each of these viruses contains a polymerase, which we expect to be relatively conserved, as well as surface protein (or protein subunit) that binds to a host-cell receptor.
           This plot compares the rates of adaptation within these genes.<p>
+
+        <p class="text-muted">Hovering your mouse over a point on the plot will indicate which viral protein the rate is calculated for (e.g. for H3N2, polymerase is PB1 and receptor-binding is HA1).
+          The rate, and viral family will also be shown.
+          The units on the y-axis can be changed from "adaptive mutations per codon to year" to "adaptive mutations per year", which gives an estimate of the total number of adaptive mutations that accrue in that gene during a year, using the drop-down menu beneath the plot.
+          Clicking on the point will bring you to a virus-specific page which shows the inferred rates of adaptation in other genes of this virus as well as predicted adaptive epitopes in the receptor-binding protein.<p>
 
         <h5>Which viruses are included?</h5>
         <p class="text-muted">This panel focuses on viruses with an RNA genome (positive- or negative-sense) that are endemic in humans, and for which there are a minimum of 50 high-quality sequences spanning at least 20 years of time.<p>
 
         <h5>How are the rates calculated?</h5>
-        <p class="text-muted">Rates of adaptation here are calculated according to an adaptation of the McDonald-Krietman test laid out in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3163432/">Bhatt et al, 2011</a>.
+        <p class="text-muted">Rates of adaptation here are calculated according to an adaptation of the <a href="https://www.nature.com/articles/351652a0">McDonald-Krietman</a> test laid out in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3163432/">Bhatt et al, 2011</a>.
           This method divides an alignment of sequences into time windows and then calculates the number of adaptive mutations that have accumulated between the ancestral sequence and each subsequent time point.
           The time points are then fit by linear regression and the rate of adaptation is the slope.</p>
 
@@ -109,6 +115,22 @@
           These counts are obtained by walking through each nucleotide position in the sequence and comparing the outgroup to the alignment.</p>
 
         <h5>What do these rates indicate about duration of immunity from natural infection or vaccination?</h5>
+        <p class="text-muted">Upon a zoonosis event from an animal to humans, viruses almost always undergo adaptive evolution to adapt to the new host environment.
+          This usually includes adaptation in the receptor-binding domain to optimize binding of human receptors- a process which is usually accomplished within a few years.
+          However, the receptor-binding protein is also a major target of the human immune system, putting another evolutionary pressure on the virus to fix mutations in this region that escape immune recognition.
+          Because the humoral immune system is also adaptive, this supplies a continuous selective pressure on the virus.
+          Thus, viruses that have been endemic in humans for decades and continue to display adaptive evolution in their receptor-binding proteins, are likely evolving antigenically to escape antibody responses elicted by past infections.</p>
+
+        <p class="text-muted">This means that we will be susceptible to reinfection by viruses that evolve antigenically, and also that vaccines against these viruses will provide only temporary protection.
+          The goal of this project is to predict which viruses undergo antigenic evolution and which do not by directly comparing rates of adaptation in the receptor-binding proteins across a panel of viruses.
+          Measles and Influenza A/H3N2 can be thought of a benchmarks for comparison: measles is antigenically stable while H3N2 is known to undergo rapid antigenic drift.
+          The implications of this for human disease are that the measles vaccine (which is based on a virus that was circulating in the 1960's) offers life-long protection against infection, while the H3N2 vaccine offers only transient protection, necessitating continual updates to the vaccine formulation.
+          Between 2006 and 2021, the H3N2 component of the influenza vaccine was updated 10 times (11 different H3N2 strains).</p>
+
+        <p class="text-muted">The rate of adaptation should be related to the time it takes the virus to evolve an escape mutant and, thus, the duration of vaccine efficacy.
+          Fittingly, influenza B viruses (which we predict to evolve antigenically, but at a slower rate than H3N2), were updated 4 times between 2006 and 2021.
+          Though we hypothesize that there is a relationship between rate of adaptation in the receptor-binding protein and duration of immunity from natural infection or vaccination, we do not fully understand the nature of this relationship.
+          The conversion of "rate of adaptation" to "duration of immunity" is complicated by factors such as waning immunity and a difference in the exact number of adaptive mutations needed to effectively escape immunity (some viruses can escape with just one amino acid change, while others require more).</p>
 
       </div>
     </div>
