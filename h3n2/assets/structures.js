@@ -81,12 +81,11 @@ var display_epitopes = {AschemeID:A_epitopes_scheme, BschemeID:B_epitopes_scheme
 //Load initial display coloring
 document.addEventListener("DOMContentLoaded", function () {
 // Load PDB entry
-stage.loadFile( "rcsb://4fnk", { defaultRepresentation: false, name: "ha_structure"} ).then((o)=>{
+stage.loadFile( "rcsb://4fnk", {defaultRepresentation: false, name: "ha_structure"} ).then((o)=>{
   o.setRotation([ 2.25, 0.5, 0.25 ]);
   color_protein(o,display_epitopes)});
 });
 
-stage.signal.clicked.add(function(pickingProxy){href="https://nextstrain.org/groups/blab/flu/seasonal/h3n2/ha/60y?c=gt-HA1_255"})
 
 // JavaScript to handle dropdown changes
 function handleChange() {
