@@ -1,0 +1,17 @@
+var A_epitopes_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xf0f0f0}
+else if (atom.resno == 309) {return 0x440154}
+else if (atom.resno == 311) {return 0x440154}
+else if (atom.resno == 312) {return 0x440154}
+else if (atom.resno == 316) {return 0x440154}
+else if (atom.resno == 325) {return 0x440154}
+else if (atom.resno == 355) {return 0x440154}
+else if (atom.resno == 357) {return 0x440154}
+else if (atom.resno == 314) {return 0x440154}
+else if (atom.resno == 407) {return 0xfde725}
+else if (atom.resno == 408) {return 0xfde725}
+else {return 0xf0f0f0}
+}})
+
+

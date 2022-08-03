@@ -22,10 +22,10 @@
   </section>
 
   <div class="container">
-    <div class="row gy-5">
-      <div class="col-md-6 my-auto">
+    <div class="row gy-5 mt-2">
+      <div class="col my-auto ml-2 pr-1">
         <!-- show structure, start with fixations visible -->
-        <div id="structure" class="structure mx-auto" style="width:600px; height:600px;"></div>
+        <div id="structure" class="structure mx-auto" style="width:500px; height:500px;"></div>
         <!-- dropdown menu to select structure coloring -->
         <select id="colorby_dropdown" class="btn btn-light dropdown-toggle w-auto h-25" onchange="handleChange()">
           <option value="display-epitopes">Sites of Immune Evasion</option>
@@ -34,7 +34,7 @@
         </select>
       </div>
 
-      <div class="col-md-6 my-auto">
+      <div class="col my-auto mr-2">
         <h3>Predicted sites of immune evasion on the Spike protein</h3>
         <p>Epitopes (regions bound by neutralizing antibodies) that have undergone adaptive evolution to escape antibodies should:</p>
         <ul>
@@ -43,7 +43,7 @@
           <ol>3. occur in clusters</ol>
         </ul>
         <p>Here, predicted antigenically-evolving epitopes are shown on the Spike protein.</p>
-        <p class="text-muted">These epitopes are defined by clusters of 2 or more adjacent (within 6Å) residues, located on the protein's surface (at least 15Å² exposed to solvent), that have experienced at least 1 nonsynonymous fixation event.</p>
+        <p class="text-muted">These epitopes are defined by clusters of 2 or more adjacent (within 8Å) residues, located on the protein's surface (at least 15Å² exposed to solvent), that have experienced at least 1 nonsynonymous fixation event.</p>
         <p>The drop-down menu can be used to re-color Spike by surface residues, or by the number of nonsynonymous fixation events per residue.</p>
       </div>
 

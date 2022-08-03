@@ -1,0 +1,91 @@
+var A_epitopes_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xf0f0f0}
+else if (atom.resno == 25) {return 0x440154}
+else if (atom.resno == 33) {return 0x440154}
+else if (atom.resno == 45) {return 0x472d7b}
+else if (atom.resno == 311) {return 0x472d7b}
+else if (atom.resno == 312) {return 0x472d7b}
+else if (atom.resno == 307) {return 0x472d7b}
+else if (atom.resno == 48) {return 0xaddc30}
+else if (atom.resno == 50) {return 0xaddc30}
+else if (atom.resno == 275) {return 0xaddc30}
+else if (atom.resno == 53) {return 0xaddc30}
+else if (atom.resno == 276) {return 0xaddc30}
+else if (atom.resno == 54) {return 0xaddc30}
+else if (atom.resno == 57) {return 0xaddc30}
+else if (atom.resno == 278) {return 0xaddc30}
+else if (atom.resno == 82) {return 0xaddc30}
+else if (atom.resno == 83) {return 0xaddc30}
+else if (atom.resno == 78) {return 0xaddc30}
+else if (atom.resno == 62) {return 0x5ec962}
+else if (atom.resno == 75) {return 0x5ec962}
+else if (atom.resno == 78) {return 0x5ec962}
+else if (atom.resno == 92) {return 0x5ec962}
+else if (atom.resno == 94) {return 0x5ec962}
+else if (atom.resno == 140) {return 0x5ec962}
+else if (atom.resno == 142) {return 0x5ec962}
+else if (atom.resno == 82) {return 0x5ec962}
+else if (atom.resno == 135) {return 0x5ec962}
+else if (atom.resno == 137) {return 0x5ec962}
+else if (atom.resno == 143) {return 0x5ec962}
+else if (atom.resno == 144) {return 0x5ec962}
+else if (atom.resno == 145) {return 0x5ec962}
+else if (atom.resno == 121) {return 0x28ae80}
+else if (atom.resno == 122) {return 0x28ae80}
+else if (atom.resno == 124) {return 0x28ae80}
+else if (atom.resno == 172) {return 0x28ae80}
+else if (atom.resno == 126) {return 0x28ae80}
+else if (atom.resno == 171) {return 0x28ae80}
+else if (atom.resno == 173) {return 0x28ae80}
+else if (atom.resno == 207) {return 0x28ae80}
+else if (atom.resno == 131) {return 0x2c728e}
+else if (atom.resno == 133) {return 0x2c728e}
+else if (atom.resno == 155) {return 0x2c728e}
+else if (atom.resno == 156) {return 0x2c728e}
+else if (atom.resno == 157) {return 0x2c728e}
+else if (atom.resno == 158) {return 0x2c728e}
+else if (atom.resno == 160) {return 0x2c728e}
+else if (atom.resno == 135) {return 0x2c728e}
+else if (atom.resno == 145) {return 0x2c728e}
+else if (atom.resno == 137) {return 0x2c728e}
+else if (atom.resno == 140) {return 0x2c728e}
+else if (atom.resno == 144) {return 0x2c728e}
+else if (atom.resno == 226) {return 0x2c728e}
+else if (atom.resno == 142) {return 0x2c728e}
+else if (atom.resno == 143) {return 0x2c728e}
+else if (atom.resno == 225) {return 0x2c728e}
+else if (atom.resno == 193) {return 0x2c728e}
+else if (atom.resno == 196) {return 0x2c728e}
+else if (atom.resno == 159) {return 0x2c728e}
+else if (atom.resno == 189) {return 0x2c728e}
+else if (atom.resno == 192) {return 0x2c728e}
+else if (atom.resno == 197) {return 0x2c728e}
+else if (atom.resno == 163) {return 0x2c728e}
+else if (atom.resno == 248) {return 0x2c728e}
+else if (atom.resno == 188) {return 0x2c728e}
+else if (atom.resno == 198) {return 0x2c728e}
+else if (atom.resno == 222) {return 0x2c728e}
+else if (atom.resno == 227) {return 0x2c728e}
+else if (atom.resno == 213) {return 0x2c728e}
+else if (atom.resno == 212) {return 0xfde725}
+else if (atom.resno == 213) {return 0xfde725}
+else if (atom.resno == 248) {return 0xfde725}
+else if (atom.resno == 299) {return 0x21918c}
+else if (atom.resno == 307) {return 0x21918c}
+else if (atom.resno == 311) {return 0x21918c}
+else {return 0xf0f0f0}
+}})
+
+
+var B_epitopes_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xf0f0f0}
+else if (atom.resno == 57) {return 0x21918c}
+else if (atom.resno == 121) {return 0x3b528b}
+else if (atom.resno == 155) {return 0x3b528b}
+else if (atom.resno == 150) {return 0x3b528b}
+else {return 0xf0f0f0}
+}})
+
+

@@ -1,0 +1,10 @@
+var A_epitopes_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xf0f0f0}
+else if (atom.resno == 25) {return 0x440154}
+else if (atom.resno == 26) {return 0x440154}
+else if (atom.resno == 27) {return 0x440154}
+else {return 0xf0f0f0}
+}})
+
+
