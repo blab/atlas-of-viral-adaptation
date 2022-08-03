@@ -1,612 +1,83 @@
+// Create NGL Stage object, global variable
+var stage = new NGL.Stage( "structure" );
+stage.setParameters({backgroundColor: "white"});
+// deal with window re-sizing
+window.addEventListener( "resize", function( event ){stage.handleResize();}, false );
+
+function color_protein(o, display_scheme) {
+  o.addRepresentation("surface", {sele: "(:A or :C or :E) and protein", color: display_scheme.AschemeID})
+  o.addRepresentation("surface", {sele: "(:B or :D or :F) and protein", color: display_scheme.BschemeID})
+  o.autoView()
+}
+
+var B_fixations_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xfff5f0}
+else if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222].includes(atom.resno)) {return 0xfff5f0}
+else if ([124, 172].includes(atom.resno)) {return 0x67000d}
+else {return 0xfff5f0}
+}})
+
+
+var A_fixations_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xfff5f0}
+else if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 75, 76, 77, 78, 79, 80, 81, 82, 83, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327].includes(atom.resno)) {return 0xfff5f0}
+else if ([74, 84, 97, 162, 163, 164, 185, 216, 256, 283, 295].includes(atom.resno)) {return 0x67000d}
+else {return 0xfff5f0}
+}})
+
+var display_fixations = {AschemeID:A_fixations_scheme, BschemeID:B_fixations_scheme}
+
+
+var A_surface_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xe7e7e7}
+else if ([142, 117, 128, 325, 300, 197, 289, 308, 96, 144, 81, 211, 322, 145, 312, 193, 269, 39, 31, 175, 256, 233, 33, 296, 94, 171, 169, 40, 212, 158, 137, 208, 194, 63, 79, 90, 210, 75, 174, 25, 187, 49, 215, 285, 57, 310, 100, 216, 248, 222, 323, 129, 45, 242, 219, 80, 226, 261, 48, 173, 38, 207, 35, 57, 299, 160, 231, 140, 190, 196, 275, 58, 21, 166, 304, 46, 82, 267, 313, 55, 291, 262, 223, 278, 201, 12, 192, 273, 101, 106, 141, 27, 198, 167, 277, 239, 262, 105, 53, 53, 240, 41, 103, 290, 233, 276, 188, 102, 224, 62, 78, 263, 135, 91, 157, 307, 225, 274, 32, 227, 47, 324, 10, 280, 124, 238, 116, 146, 159, 271, 162, 165, 131, 50, 123, 123, 77, 149, 315, 23, 133, 163, 65, 83, 104, 80, 122, 56, 125, 119, 199, 189, 24, 209, 172, 214, 217, 143, 298, 93, 264, 255, 321, 186].includes(atom.resno)) {return 0x6C7593}
+else {return 0xe7e7e7}
+}})
+
+var B_surface_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xe7e7e7}
+else if ([74, 165, 157, 39, 133, 82, 53, 88, 43, 134, 124, 68, 69, 7, 33, 137, 175, 60, 8, 31, 66, 171, 16, 135, 173, 45, 19, 58, 131, 159, 120, 57, 132, 50, 78, 29, 153, 14, 164, 46, 34, 125, 76, 147, 128, 143, 1, 114, 160, 9, 30, 18, 105, 158, 75, 15, 73, 145, 146, 121, 174, 71, 161, 102, 86, 168, 172, 56, 27, 62, 32, 156, 49, 170, 59, 116, 167, 155, 169, 150, 26, 40, 154, 72, 11, 38, 35, 70, 139, 42, 127, 123, 64, 141, 25].includes(atom.resno)) {return 0x6C7593}
+else {return 0xe7e7e7}
+}})
+
+var display_surface = {AschemeID:A_surface_scheme, BschemeID:B_surface_scheme}
+
+
+var A_epitopes_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xf0f0f0}
+else if ([162, 163].includes(atom.resno)) {return 0x440154}
+else {return 0xf0f0f0}
+}})
+
+var B_epitopes_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+  {return 0xf0f0f0}
+}})
+
+var display_epitopes = {AschemeID:A_epitopes_scheme, BschemeID:B_epitopes_scheme}
+
+
+//Load initial display coloring
+document.addEventListener("DOMContentLoaded", function () {
+// Load PDB entry
+stage.loadFile( "rcsb://4M4Y", { defaultRepresentation: false, name: "ha_structure"} ).then((o)=>{
+  o.setRotation([ 0.5, 0, 0 ]);
+  color_protein(o,display_epitopes)});
+});
+
 // JavaScript to handle dropdown changes
 function handleChange() {
     // Get the selected option value
-    let selectedValue = document.getElementById('structures').value;
-    // Loop through the plots to change their display by adding/removing class "hidden"
-    Array.from(document.getElementsByClassName("structure")).forEach((el) => {
-        // If they are matching, then remove the hidden class to display
-        if(el.id === selectedValue) {
-            el.classList.remove("hidden")
-        }
-        // Otherwise, add the hidden class to make sure the plot is hidden
-        else {
-            el.classList.add("hidden")
-        }
-    })
+    let selectedValue = document.getElementById('colorby_dropdown').value;
+    var display_scheme
+    if (selectedValue== "display-epitopes") {display_scheme=display_epitopes}
+    else if (selectedValue== "display-fixations") {display_scheme=display_fixations}
+    else if (selectedValue== "display-surface") {display_scheme=display_surface}
+    let components = stage.getComponentsByName("ha_structure")
+    color_protein(components, display_scheme)
 }
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  var AschemeID = NGL.ColormakerRegistry.addScheme(function (params) {
-  this.atomColor = function (atom) {
-  if (atom.resno == 0) {return 0xfff5f0}
-  else if (atom.resno == 1) {return 0xfff5f0}
-  else if (atom.resno == 2) {return 0xfc8a6a}
-  else if (atom.resno == 3) {return 0xfdcab5}
-  else if (atom.resno == 4) {return 0xfff5f0}
-  else if (atom.resno == 5) {return 0xfff5f0}
-  else if (atom.resno == 6) {return 0xfff5f0}
-  else if (atom.resno == 7) {return 0xfff5f0}
-  else if (atom.resno == 8) {return 0xfff5f0}
-  else if (atom.resno == 9) {return 0xfff5f0}
-  else if (atom.resno == 10) {return 0xfff5f0}
-  else if (atom.resno == 11) {return 0xfff5f0}
-  else if (atom.resno == 12) {return 0xfff5f0}
-  else if (atom.resno == 13) {return 0xfff5f0}
-  else if (atom.resno == 14) {return 0xfff5f0}
-  else if (atom.resno == 15) {return 0xfff5f0}
-  else if (atom.resno == 16) {return 0xfff5f0}
-  else if (atom.resno == 17) {return 0xfff5f0}
-  else if (atom.resno == 18) {return 0xfff5f0}
-  else if (atom.resno == 19) {return 0xfff5f0}
-  else if (atom.resno == 20) {return 0xfff5f0}
-  else if (atom.resno == 21) {return 0xfff5f0}
-  else if (atom.resno == 22) {return 0xfff5f0}
-  else if (atom.resno == 23) {return 0xfff5f0}
-  else if (atom.resno == 24) {return 0xfff5f0}
-  else if (atom.resno == 25) {return 0xfdcab5}
-  else if (atom.resno == 26) {return 0xfff5f0}
-  else if (atom.resno == 27) {return 0xfff5f0}
-  else if (atom.resno == 28) {return 0xfff5f0}
-  else if (atom.resno == 29) {return 0xfff5f0}
-  else if (atom.resno == 30) {return 0xfff5f0}
-  else if (atom.resno == 31) {return 0xfff5f0}
-  else if (atom.resno == 32) {return 0xfff5f0}
-  else if (atom.resno == 33) {return 0xfdcab5}
-  else if (atom.resno == 34) {return 0xfff5f0}
-  else if (atom.resno == 35) {return 0xfff5f0}
-  else if (atom.resno == 36) {return 0xfff5f0}
-  else if (atom.resno == 37) {return 0xfff5f0}
-  else if (atom.resno == 38) {return 0xfff5f0}
-  else if (atom.resno == 39) {return 0xfff5f0}
-  else if (atom.resno == 40) {return 0xfff5f0}
-  else if (atom.resno == 41) {return 0xfff5f0}
-  else if (atom.resno == 42) {return 0xfff5f0}
-  else if (atom.resno == 43) {return 0xfff5f0}
-  else if (atom.resno == 44) {return 0xfff5f0}
-  else if (atom.resno == 45) {return 0xfdcab5}
-  else if (atom.resno == 46) {return 0xfff5f0}
-  else if (atom.resno == 47) {return 0xfff5f0}
-  else if (atom.resno == 48) {return 0xfdcab5}
-  else if (atom.resno == 49) {return 0xfff5f0}
-  else if (atom.resno == 50) {return 0xf14432}
-  else if (atom.resno == 51) {return 0xfff5f0}
-  else if (atom.resno == 52) {return 0xfff5f0}
-  else if (atom.resno == 53) {return 0xfdcab5}
-  else if (atom.resno == 54) {return 0xfdcab5}
-  else if (atom.resno == 55) {return 0xfff5f0}
-  else if (atom.resno == 56) {return 0xfff5f0}
-  else if (atom.resno == 57) {return 0xfdcab5}
-  else if (atom.resno == 58) {return 0xfff5f0}
-  else if (atom.resno == 59) {return 0xfff5f0}
-  else if (atom.resno == 60) {return 0xfff5f0}
-  else if (atom.resno == 61) {return 0xfff5f0}
-  else if (atom.resno == 62) {return 0xf14432}
-  else if (atom.resno == 63) {return 0xfff5f0}
-  else if (atom.resno == 64) {return 0xfff5f0}
-  else if (atom.resno == 65) {return 0xfff5f0}
-  else if (atom.resno == 66) {return 0xfff5f0}
-  else if (atom.resno == 67) {return 0xfff5f0}
-  else if (atom.resno == 68) {return 0xfff5f0}
-  else if (atom.resno == 69) {return 0xfff5f0}
-  else if (atom.resno == 70) {return 0xfff5f0}
-  else if (atom.resno == 71) {return 0xfff5f0}
-  else if (atom.resno == 72) {return 0xfff5f0}
-  else if (atom.resno == 73) {return 0xfff5f0}
-  else if (atom.resno == 74) {return 0xfff5f0}
-  else if (atom.resno == 75) {return 0xfdcab5}
-  else if (atom.resno == 76) {return 0xfff5f0}
-  else if (atom.resno == 77) {return 0xfff5f0}
-  else if (atom.resno == 78) {return 0xfdcab5}
-  else if (atom.resno == 79) {return 0xfff5f0}
-  else if (atom.resno == 80) {return 0xfff5f0}
-  else if (atom.resno == 81) {return 0xfff5f0}
-  else if (atom.resno == 82) {return 0xfdcab5}
-  else if (atom.resno == 83) {return 0xf14432}
-  else if (atom.resno == 84) {return 0xfff5f0}
-  else if (atom.resno == 85) {return 0xfff5f0}
-  else if (atom.resno == 86) {return 0xfff5f0}
-  else if (atom.resno == 87) {return 0xfff5f0}
-  else if (atom.resno == 88) {return 0xfff5f0}
-  else if (atom.resno == 89) {return 0xfff5f0}
-  else if (atom.resno == 90) {return 0xfff5f0}
-  else if (atom.resno == 91) {return 0xfff5f0}
-  else if (atom.resno == 92) {return 0xfdcab5}
-  else if (atom.resno == 93) {return 0xfff5f0}
-  else if (atom.resno == 94) {return 0xfdcab5}
-  else if (atom.resno == 95) {return 0xfff5f0}
-  else if (atom.resno == 96) {return 0xfff5f0}
-  else if (atom.resno == 97) {return 0xfff5f0}
-  else if (atom.resno == 98) {return 0xfff5f0}
-  else if (atom.resno == 99) {return 0xfff5f0}
-  else if (atom.resno == 100) {return 0xfff5f0}
-  else if (atom.resno == 101) {return 0xfff5f0}
-  else if (atom.resno == 102) {return 0xfff5f0}
-  else if (atom.resno == 103) {return 0xfff5f0}
-  else if (atom.resno == 104) {return 0xfff5f0}
-  else if (atom.resno == 105) {return 0xfff5f0}
-  else if (atom.resno == 106) {return 0xfff5f0}
-  else if (atom.resno == 107) {return 0xfff5f0}
-  else if (atom.resno == 108) {return 0xfff5f0}
-  else if (atom.resno == 109) {return 0xfff5f0}
-  else if (atom.resno == 110) {return 0xfff5f0}
-  else if (atom.resno == 111) {return 0xfff5f0}
-  else if (atom.resno == 112) {return 0xfff5f0}
-  else if (atom.resno == 113) {return 0xfff5f0}
-  else if (atom.resno == 114) {return 0xfff5f0}
-  else if (atom.resno == 115) {return 0xfff5f0}
-  else if (atom.resno == 116) {return 0xfff5f0}
-  else if (atom.resno == 117) {return 0xfff5f0}
-  else if (atom.resno == 118) {return 0xfff5f0}
-  else if (atom.resno == 119) {return 0xfff5f0}
-  else if (atom.resno == 120) {return 0xfff5f0}
-  else if (atom.resno == 121) {return 0xfc8a6a}
-  else if (atom.resno == 122) {return 0xfdcab5}
-  else if (atom.resno == 123) {return 0xfff5f0}
-  else if (atom.resno == 124) {return 0xfc8a6a}
-  else if (atom.resno == 125) {return 0xfff5f0}
-  else if (atom.resno == 126) {return 0xfdcab5}
-  else if (atom.resno == 127) {return 0xfff5f0}
-  else if (atom.resno == 128) {return 0xfff5f0}
-  else if (atom.resno == 129) {return 0xfff5f0}
-  else if (atom.resno == 130) {return 0xfff5f0}
-  else if (atom.resno == 131) {return 0xfc8a6a}
-  else if (atom.resno == 132) {return 0xfff5f0}
-  else if (atom.resno == 133) {return 0xf14432}
-  else if (atom.resno == 134) {return 0xfff5f0}
-  else if (atom.resno == 135) {return 0xfc8a6a}
-  else if (atom.resno == 136) {return 0xfff5f0}
-  else if (atom.resno == 137) {return 0xfc8a6a}
-  else if (atom.resno == 138) {return 0xfff5f0}
-  else if (atom.resno == 139) {return 0xfff5f0}
-  else if (atom.resno == 140) {return 0xfdcab5}
-  else if (atom.resno == 141) {return 0xfff5f0}
-  else if (atom.resno == 142) {return 0xfc8a6a}
-  else if (atom.resno == 143) {return 0xfdcab5}
-  else if (atom.resno == 144) {return 0xbc141a}
-  else if (atom.resno == 145) {return 0xbc141a}
-  else if (atom.resno == 146) {return 0xfdcab5}
-  else if (atom.resno == 147) {return 0xfff5f0}
-  else if (atom.resno == 148) {return 0xfff5f0}
-  else if (atom.resno == 149) {return 0xfff5f0}
-  else if (atom.resno == 150) {return 0xfff5f0}
-  else if (atom.resno == 151) {return 0xfff5f0}
-  else if (atom.resno == 152) {return 0xfff5f0}
-  else if (atom.resno == 153) {return 0xfff5f0}
-  else if (atom.resno == 154) {return 0xfff5f0}
-  else if (atom.resno == 155) {return 0xf14432}
-  else if (atom.resno == 156) {return 0xbc141a}
-  else if (atom.resno == 157) {return 0xfdcab5}
-  else if (atom.resno == 158) {return 0xf14432}
-  else if (atom.resno == 159) {return 0xf14432}
-  else if (atom.resno == 160) {return 0xfc8a6a}
-  else if (atom.resno == 161) {return 0xfff5f0}
-  else if (atom.resno == 162) {return 0xfff5f0}
-  else if (atom.resno == 163) {return 0xfdcab5}
-  else if (atom.resno == 164) {return 0xfff5f0}
-  else if (atom.resno == 165) {return 0xfff5f0}
-  else if (atom.resno == 166) {return 0xfff5f0}
-  else if (atom.resno == 167) {return 0xfff5f0}
-  else if (atom.resno == 168) {return 0xfff5f0}
-  else if (atom.resno == 169) {return 0xfff5f0}
-  else if (atom.resno == 170) {return 0xfff5f0}
-  else if (atom.resno == 171) {return 0xfdcab5}
-  else if (atom.resno == 172) {return 0xf14432}
-  else if (atom.resno == 173) {return 0xfc8a6a}
-  else if (atom.resno == 174) {return 0xfff5f0}
-  else if (atom.resno == 175) {return 0xfff5f0}
-  else if (atom.resno == 176) {return 0xfff5f0}
-  else if (atom.resno == 177) {return 0xfff5f0}
-  else if (atom.resno == 178) {return 0xfff5f0}
-  else if (atom.resno == 179) {return 0xfff5f0}
-  else if (atom.resno == 180) {return 0xfff5f0}
-  else if (atom.resno == 181) {return 0xfff5f0}
-  else if (atom.resno == 182) {return 0xfff5f0}
-  else if (atom.resno == 183) {return 0xfff5f0}
-  else if (atom.resno == 184) {return 0xfff5f0}
-  else if (atom.resno == 185) {return 0xfff5f0}
-  else if (atom.resno == 186) {return 0xfdcab5}
-  else if (atom.resno == 187) {return 0xfff5f0}
-  else if (atom.resno == 188) {return 0xfdcab5}
-  else if (atom.resno == 189) {return 0x67000d}
-  else if (atom.resno == 190) {return 0xfdcab5}
-  else if (atom.resno == 191) {return 0xfff5f0}
-  else if (atom.resno == 192) {return 0xfdcab5}
-  else if (atom.resno == 193) {return 0xf14432}
-  else if (atom.resno == 194) {return 0xfff5f0}
-  else if (atom.resno == 195) {return 0x0000ff}
-  else if (atom.resno == 196) {return 0xfdcab5}
-  else if (atom.resno == 197) {return 0xfc8a6a}
-  else if (atom.resno == 198) {return 0xfdcab5}
-  else if (atom.resno == 199) {return 0xfff5f0}
-  else if (atom.resno == 200) {return 0xfff5f0}
-  else if (atom.resno == 201) {return 0xfff5f0}
-  else if (atom.resno == 202) {return 0xfdcab5}
-  else if (atom.resno == 203) {return 0xfff5f0}
-  else if (atom.resno == 204) {return 0xfff5f0}
-  else if (atom.resno == 205) {return 0xfff5f0}
-  else if (atom.resno == 206) {return 0xfff5f0}
-  else if (atom.resno == 207) {return 0xfdcab5}
-  else if (atom.resno == 208) {return 0xfff5f0}
-  else if (atom.resno == 209) {return 0xfff5f0}
-  else if (atom.resno == 210) {return 0xfff5f0}
-  else if (atom.resno == 211) {return 0xfff5f0}
-  else if (atom.resno == 212) {return 0xfdcab5}
-  else if (atom.resno == 213) {return 0xfdcab5}
-  else if (atom.resno == 214) {return 0xfff5f0}
-  else if (atom.resno == 215) {return 0xfff5f0}
-  else if (atom.resno == 216) {return 0xfff5f0}
-  else if (atom.resno == 217) {return 0xfc8a6a}
-  else if (atom.resno == 218) {return 0xfff5f0}
-  else if (atom.resno == 219) {return 0xfff5f0}
-  else if (atom.resno == 220) {return 0xfff5f0}
-  else if (atom.resno == 221) {return 0xfff5f0}
-  else if (atom.resno == 222) {return 0xfdcab5}
-  else if (atom.resno == 223) {return 0xfdcab5}
-  else if (atom.resno == 224) {return 0xfff5f0}
-  else if (atom.resno == 225) {return 0xf14432}
-  else if (atom.resno == 226) {return 0xfc8a6a}
-  else if (atom.resno == 227) {return 0xfdcab5}
-  else if (atom.resno == 228) {return 0xfff5f0}
-  else if (atom.resno == 229) {return 0xfff5f0}
-  else if (atom.resno == 230) {return 0xfff5f0}
-  else if (atom.resno == 231) {return 0xfff5f0}
-  else if (atom.resno == 232) {return 0xfff5f0}
-  else if (atom.resno == 233) {return 0xfff5f0}
-  else if (atom.resno == 234) {return 0xfff5f0}
-  else if (atom.resno == 235) {return 0xfff5f0}
-  else if (atom.resno == 236) {return 0xfff5f0}
-  else if (atom.resno == 237) {return 0xfff5f0}
-  else if (atom.resno == 238) {return 0xfff5f0}
-  else if (atom.resno == 239) {return 0xfff5f0}
-  else if (atom.resno == 240) {return 0xfff5f0}
-  else if (atom.resno == 241) {return 0xfff5f0}
-  else if (atom.resno == 242) {return 0xfdcab5}
-  else if (atom.resno == 243) {return 0xfff5f0}
-  else if (atom.resno == 244) {return 0xfdcab5}
-  else if (atom.resno == 245) {return 0xfff5f0}
-  else if (atom.resno == 246) {return 0xfff5f0}
-  else if (atom.resno == 247) {return 0xfff5f0}
-  else if (atom.resno == 248) {return 0xfdcab5}
-  else if (atom.resno == 249) {return 0xfff5f0}
-  else if (atom.resno == 250) {return 0xfff5f0}
-  else if (atom.resno == 251) {return 0xfff5f0}
-  else if (atom.resno == 252) {return 0xfff5f0}
-  else if (atom.resno == 253) {return 0xfff5f0}
-  else if (atom.resno == 254) {return 0xfff5f0}
-  else if (atom.resno == 255) {return 0xfff5f0}
-  else if (atom.resno == 256) {return 0xfff5f0}
-  else if (atom.resno == 257) {return 0xfff5f0}
-  else if (atom.resno == 258) {return 0xfff5f0}
-  else if (atom.resno == 259) {return 0xfff5f0}
-  else if (atom.resno == 260) {return 0xfdcab5}
-  else if (atom.resno == 261) {return 0xfff5f0}
-  else if (atom.resno == 262) {return 0xfc8a6a}
-  else if (atom.resno == 263) {return 0xfff5f0}
-  else if (atom.resno == 264) {return 0xfff5f0}
-  else if (atom.resno == 265) {return 0xfff5f0}
-  else if (atom.resno == 266) {return 0xfff5f0}
-  else if (atom.resno == 267) {return 0xfff5f0}
-  else if (atom.resno == 268) {return 0xfff5f0}
-  else if (atom.resno == 269) {return 0xfff5f0}
-  else if (atom.resno == 270) {return 0xfff5f0}
-  else if (atom.resno == 271) {return 0xfff5f0}
-  else if (atom.resno == 272) {return 0xfff5f0}
-  else if (atom.resno == 273) {return 0xfff5f0}
-  else if (atom.resno == 274) {return 0xfff5f0}
-  else if (atom.resno == 275) {return 0xfdcab5}
-  else if (atom.resno == 276) {return 0xfc8a6a}
-  else if (atom.resno == 277) {return 0xfff5f0}
-  else if (atom.resno == 278) {return 0xf14432}
-  else if (atom.resno == 279) {return 0xfff5f0}
-  else if (atom.resno == 280) {return 0xfff5f0}
-  else if (atom.resno == 281) {return 0xfff5f0}
-  else if (atom.resno == 282) {return 0xfff5f0}
-  else if (atom.resno == 283) {return 0xfff5f0}
-  else if (atom.resno == 284) {return 0xfff5f0}
-  else if (atom.resno == 285) {return 0xfff5f0}
-  else if (atom.resno == 286) {return 0xfff5f0}
-  else if (atom.resno == 287) {return 0xfff5f0}
-  else if (atom.resno == 288) {return 0xfff5f0}
-  else if (atom.resno == 289) {return 0xfff5f0}
-  else if (atom.resno == 290) {return 0xfff5f0}
-  else if (atom.resno == 291) {return 0xfff5f0}
-  else if (atom.resno == 292) {return 0xfff5f0}
-  else if (atom.resno == 293) {return 0xfff5f0}
-  else if (atom.resno == 294) {return 0xfff5f0}
-  else if (atom.resno == 295) {return 0xfff5f0}
-  else if (atom.resno == 296) {return 0xfff5f0}
-  else if (atom.resno == 297) {return 0xfff5f0}
-  else if (atom.resno == 298) {return 0xfff5f0}
-  else if (atom.resno == 299) {return 0xfdcab5}
-  else if (atom.resno == 300) {return 0xfff5f0}
-  else if (atom.resno == 301) {return 0xfff5f0}
-  else if (atom.resno == 302) {return 0xfff5f0}
-  else if (atom.resno == 303) {return 0xfff5f0}
-  else if (atom.resno == 304) {return 0xfff5f0}
-  else if (atom.resno == 305) {return 0xfff5f0}
-  else if (atom.resno == 306) {return 0xfff5f0}
-  else if (atom.resno == 307) {return 0xfdcab5}
-  else if (atom.resno == 308) {return 0xfff5f0}
-  else if (atom.resno == 309) {return 0xfff5f0}
-  else if (atom.resno == 310) {return 0xfff5f0}
-  else if (atom.resno == 311) {return 0xfc8a6a}
-  else if (atom.resno == 312) {return 0xfdcab5}
-  else if (atom.resno == 313) {return 0xfff5f0}
-  else if (atom.resno == 314) {return 0xfff5f0}
-  else if (atom.resno == 315) {return 0xfff5f0}
-  else if (atom.resno == 316) {return 0xfff5f0}
-  else if (atom.resno == 317) {return 0xfff5f0}
-  else if (atom.resno == 318) {return 0xfff5f0}
-  else if (atom.resno == 319) {return 0xfff5f0}
-  else if (atom.resno == 320) {return 0xfff5f0}
-  else if (atom.resno == 321) {return 0xfff5f0}
-  else if (atom.resno == 322) {return 0xfff5f0}
-  else if (atom.resno == 323) {return 0xfff5f0}
-  else if (atom.resno == 324) {return 0xfff5f0}
-  else if (atom.resno == 325) {return 0xfff5f0}
-  else if (atom.resno == 326) {return 0xfff5f0}
-  else if (atom.resno == 327) {return 0xfff5f0}
-  else if (atom.resno == 328) {return 0xfff5f0}
-  else if (atom.resno == 329) {return 0xfff5f0}
-  }})
-
-  var BschemeID = NGL.ColormakerRegistry.addScheme(function (params) {
-  this.atomColor = function (atom) {
-  if (atom.resno == 0) {return 0xfff5f0}
-  else if (atom.resno == 1) {return 0xfff5f0}
-  else if (atom.resno == 2) {return 0xfdcab5}
-  else if (atom.resno == 3) {return 0xfff5f0}
-  else if (atom.resno == 4) {return 0xfff5f0}
-  else if (atom.resno == 5) {return 0xfff5f0}
-  else if (atom.resno == 6) {return 0xfff5f0}
-  else if (atom.resno == 7) {return 0xfff5f0}
-  else if (atom.resno == 8) {return 0xfff5f0}
-  else if (atom.resno == 9) {return 0xfff5f0}
-  else if (atom.resno == 10) {return 0xfff5f0}
-  else if (atom.resno == 11) {return 0xfff5f0}
-  else if (atom.resno == 12) {return 0xfff5f0}
-  else if (atom.resno == 13) {return 0xfff5f0}
-  else if (atom.resno == 14) {return 0xfff5f0}
-  else if (atom.resno == 15) {return 0xfff5f0}
-  else if (atom.resno == 16) {return 0xfff5f0}
-  else if (atom.resno == 17) {return 0xfff5f0}
-  else if (atom.resno == 18) {return 0xfdcab5}
-  else if (atom.resno == 19) {return 0xfff5f0}
-  else if (atom.resno == 20) {return 0xfff5f0}
-  else if (atom.resno == 21) {return 0xfff5f0}
-  else if (atom.resno == 22) {return 0xfff5f0}
-  else if (atom.resno == 23) {return 0xfff5f0}
-  else if (atom.resno == 24) {return 0xfff5f0}
-  else if (atom.resno == 25) {return 0xfff5f0}
-  else if (atom.resno == 26) {return 0xfff5f0}
-  else if (atom.resno == 27) {return 0xfff5f0}
-  else if (atom.resno == 28) {return 0xfff5f0}
-  else if (atom.resno == 29) {return 0xfff5f0}
-  else if (atom.resno == 30) {return 0xfff5f0}
-  else if (atom.resno == 31) {return 0xfff5f0}
-  else if (atom.resno == 32) {return 0xfc8a6a}
-  else if (atom.resno == 33) {return 0xfff5f0}
-  else if (atom.resno == 34) {return 0xfff5f0}
-  else if (atom.resno == 35) {return 0xfff5f0}
-  else if (atom.resno == 36) {return 0xfff5f0}
-  else if (atom.resno == 37) {return 0xfff5f0}
-  else if (atom.resno == 38) {return 0xfff5f0}
-  else if (atom.resno == 39) {return 0xfff5f0}
-  else if (atom.resno == 40) {return 0xfff5f0}
-  else if (atom.resno == 41) {return 0xfff5f0}
-  else if (atom.resno == 42) {return 0xfff5f0}
-  else if (atom.resno == 43) {return 0xfff5f0}
-  else if (atom.resno == 44) {return 0xfff5f0}
-  else if (atom.resno == 45) {return 0xfff5f0}
-  else if (atom.resno == 46) {return 0xfc8a6a}
-  else if (atom.resno == 47) {return 0xfff5f0}
-  else if (atom.resno == 48) {return 0xfff5f0}
-  else if (atom.resno == 49) {return 0xfff5f0}
-  else if (atom.resno == 50) {return 0xfff5f0}
-  else if (atom.resno == 51) {return 0xfff5f0}
-  else if (atom.resno == 52) {return 0xfff5f0}
-  else if (atom.resno == 53) {return 0xfff5f0}
-  else if (atom.resno == 54) {return 0xfff5f0}
-  else if (atom.resno == 55) {return 0xfdcab5}
-  else if (atom.resno == 56) {return 0xfff5f0}
-  else if (atom.resno == 57) {return 0xfdcab5}
-  else if (atom.resno == 58) {return 0xfff5f0}
-  else if (atom.resno == 59) {return 0xfff5f0}
-  else if (atom.resno == 60) {return 0xfff5f0}
-  else if (atom.resno == 61) {return 0xfff5f0}
-  else if (atom.resno == 62) {return 0xfff5f0}
-  else if (atom.resno == 63) {return 0xfff5f0}
-  else if (atom.resno == 64) {return 0xfff5f0}
-  else if (atom.resno == 65) {return 0xfff5f0}
-  else if (atom.resno == 66) {return 0xfff5f0}
-  else if (atom.resno == 67) {return 0xfff5f0}
-  else if (atom.resno == 68) {return 0xfff5f0}
-  else if (atom.resno == 69) {return 0xfff5f0}
-  else if (atom.resno == 70) {return 0xfff5f0}
-  else if (atom.resno == 71) {return 0xfff5f0}
-  else if (atom.resno == 72) {return 0xfff5f0}
-  else if (atom.resno == 73) {return 0xfff5f0}
-  else if (atom.resno == 74) {return 0xfff5f0}
-  else if (atom.resno == 75) {return 0xfff5f0}
-  else if (atom.resno == 76) {return 0xfff5f0}
-  else if (atom.resno == 77) {return 0xfdcab5}
-  else if (atom.resno == 78) {return 0xfff5f0}
-  else if (atom.resno == 79) {return 0xfff5f0}
-  else if (atom.resno == 80) {return 0xfff5f0}
-  else if (atom.resno == 81) {return 0xfff5f0}
-  else if (atom.resno == 82) {return 0xfff5f0}
-  else if (atom.resno == 83) {return 0xfff5f0}
-  else if (atom.resno == 84) {return 0xfff5f0}
-  else if (atom.resno == 85) {return 0xfff5f0}
-  else if (atom.resno == 86) {return 0xfff5f0}
-  else if (atom.resno == 87) {return 0xfff5f0}
-  else if (atom.resno == 88) {return 0xfff5f0}
-  else if (atom.resno == 89) {return 0xfff5f0}
-  else if (atom.resno == 90) {return 0xfff5f0}
-  else if (atom.resno == 91) {return 0xfff5f0}
-  else if (atom.resno == 92) {return 0xfff5f0}
-  else if (atom.resno == 93) {return 0xfff5f0}
-  else if (atom.resno == 94) {return 0xfff5f0}
-  else if (atom.resno == 95) {return 0xfff5f0}
-  else if (atom.resno == 96) {return 0xfff5f0}
-  else if (atom.resno == 97) {return 0xfff5f0}
-  else if (atom.resno == 98) {return 0xfff5f0}
-  else if (atom.resno == 99) {return 0xfff5f0}
-  else if (atom.resno == 100) {return 0xfff5f0}
-  else if (atom.resno == 101) {return 0xfff5f0}
-  else if (atom.resno == 102) {return 0xfff5f0}
-  else if (atom.resno == 103) {return 0xfff5f0}
-  else if (atom.resno == 104) {return 0xfff5f0}
-  else if (atom.resno == 105) {return 0xfff5f0}
-  else if (atom.resno == 106) {return 0xfff5f0}
-  else if (atom.resno == 107) {return 0xfff5f0}
-  else if (atom.resno == 108) {return 0xfff5f0}
-  else if (atom.resno == 109) {return 0xfff5f0}
-  else if (atom.resno == 110) {return 0xfff5f0}
-  else if (atom.resno == 111) {return 0xfff5f0}
-  else if (atom.resno == 112) {return 0xfff5f0}
-  else if (atom.resno == 113) {return 0xfff5f0}
-  else if (atom.resno == 114) {return 0xfff5f0}
-  else if (atom.resno == 115) {return 0xfff5f0}
-  else if (atom.resno == 116) {return 0xfff5f0}
-  else if (atom.resno == 117) {return 0xfff5f0}
-  else if (atom.resno == 118) {return 0xfff5f0}
-  else if (atom.resno == 119) {return 0xfff5f0}
-  else if (atom.resno == 120) {return 0xfff5f0}
-  else if (atom.resno == 121) {return 0xfc8a6a}
-  else if (atom.resno == 122) {return 0xfff5f0}
-  else if (atom.resno == 123) {return 0xfdcab5}
-  else if (atom.resno == 124) {return 0xfdcab5}
-  else if (atom.resno == 125) {return 0xfff5f0}
-  else if (atom.resno == 126) {return 0xfff5f0}
-  else if (atom.resno == 127) {return 0xfff5f0}
-  else if (atom.resno == 128) {return 0xfff5f0}
-  else if (atom.resno == 129) {return 0xfff5f0}
-  else if (atom.resno == 130) {return 0xfff5f0}
-  else if (atom.resno == 131) {return 0xfff5f0}
-  else if (atom.resno == 132) {return 0xfff5f0}
-  else if (atom.resno == 133) {return 0xfff5f0}
-  else if (atom.resno == 134) {return 0xfff5f0}
-  else if (atom.resno == 135) {return 0xfff5f0}
-  else if (atom.resno == 136) {return 0xfff5f0}
-  else if (atom.resno == 137) {return 0xfff5f0}
-  else if (atom.resno == 138) {return 0xfff5f0}
-  else if (atom.resno == 139) {return 0xfff5f0}
-  else if (atom.resno == 140) {return 0xfff5f0}
-  else if (atom.resno == 141) {return 0xfff5f0}
-  else if (atom.resno == 142) {return 0xfff5f0}
-  else if (atom.resno == 143) {return 0xfff5f0}
-  else if (atom.resno == 144) {return 0xfff5f0}
-  else if (atom.resno == 145) {return 0xfff5f0}
-  else if (atom.resno == 146) {return 0xfff5f0}
-  else if (atom.resno == 147) {return 0xfff5f0}
-  else if (atom.resno == 148) {return 0xfff5f0}
-  else if (atom.resno == 149) {return 0xfff5f0}
-  else if (atom.resno == 150) {return 0xfdcab5}
-  else if (atom.resno == 151) {return 0xfff5f0}
-  else if (atom.resno == 152) {return 0xfff5f0}
-  else if (atom.resno == 153) {return 0xfff5f0}
-  else if (atom.resno == 154) {return 0xfff5f0}
-  else if (atom.resno == 155) {return 0xfdcab5}
-  else if (atom.resno == 156) {return 0xfff5f0}
-  else if (atom.resno == 157) {return 0xfff5f0}
-  else if (atom.resno == 158) {return 0xfff5f0}
-  else if (atom.resno == 159) {return 0xfff5f0}
-  else if (atom.resno == 160) {return 0xfdcab5}
-  else if (atom.resno == 161) {return 0xfff5f0}
-  else if (atom.resno == 162) {return 0xfff5f0}
-  else if (atom.resno == 163) {return 0xfff5f0}
-  else if (atom.resno == 164) {return 0xfff5f0}
-  else if (atom.resno == 165) {return 0xfff5f0}
-  else if (atom.resno == 166) {return 0xfff5f0}
-  else if (atom.resno == 167) {return 0xfff5f0}
-  else if (atom.resno == 168) {return 0xfff5f0}
-  else if (atom.resno == 169) {return 0xfff5f0}
-  else if (atom.resno == 170) {return 0xfff5f0}
-  else if (atom.resno == 171) {return 0xfff5f0}
-  else if (atom.resno == 172) {return 0xfff5f0}
-  else if (atom.resno == 173) {return 0xfff5f0}
-  else if (atom.resno == 174) {return 0xfff5f0}
-  else if (atom.resno == 175) {return 0xfff5f0}
-  else if (atom.resno == 176) {return 0xfff5f0}
-  else if (atom.resno == 177) {return 0xfff5f0}
-  else if (atom.resno == 178) {return 0xfff5f0}
-  else if (atom.resno == 179) {return 0xfff5f0}
-  else if (atom.resno == 180) {return 0xfff5f0}
-  else if (atom.resno == 181) {return 0xfff5f0}
-  else if (atom.resno == 182) {return 0xfff5f0}
-  else if (atom.resno == 183) {return 0xfff5f0}
-  else if (atom.resno == 184) {return 0xfff5f0}
-  else if (atom.resno == 185) {return 0xfff5f0}
-  else if (atom.resno == 186) {return 0xfff5f0}
-  else if (atom.resno == 187) {return 0xfff5f0}
-  else if (atom.resno == 188) {return 0xfff5f0}
-  else if (atom.resno == 189) {return 0xfff5f0}
-  else if (atom.resno == 190) {return 0xfff5f0}
-  else if (atom.resno == 191) {return 0xfff5f0}
-  else if (atom.resno == 192) {return 0xfff5f0}
-  else if (atom.resno == 193) {return 0xfff5f0}
-  else if (atom.resno == 194) {return 0xfff5f0}
-  else if (atom.resno == 195) {return 0xfff5f0}
-  else if (atom.resno == 196) {return 0xfff5f0}
-  else if (atom.resno == 197) {return 0xfff5f0}
-  else if (atom.resno == 198) {return 0xfff5f0}
-  else if (atom.resno == 199) {return 0xfff5f0}
-  else if (atom.resno == 200) {return 0xfff5f0}
-  else if (atom.resno == 201) {return 0xfdcab5}
-  else if (atom.resno == 202) {return 0xfff5f0}
-  else if (atom.resno == 203) {return 0xfff5f0}
-  else if (atom.resno == 204) {return 0xfff5f0}
-  else if (atom.resno == 205) {return 0xfff5f0}
-  else if (atom.resno == 206) {return 0xfff5f0}
-  else if (atom.resno == 207) {return 0xfff5f0}
-  else if (atom.resno == 208) {return 0xfff5f0}
-  else if (atom.resno == 209) {return 0xfff5f0}
-  else if (atom.resno == 210) {return 0xfff5f0}
-  else if (atom.resno == 211) {return 0xfff5f0}
-  else if (atom.resno == 212) {return 0xfdcab5}
-  else if (atom.resno == 213) {return 0xfff5f0}
-  else if (atom.resno == 214) {return 0xfff5f0}
-  else if (atom.resno == 215) {return 0xfff5f0}
-  else if (atom.resno == 216) {return 0xfff5f0}
-  else if (atom.resno == 217) {return 0xfff5f0}
-  else if (atom.resno == 218) {return 0xfff5f0}
-  else if (atom.resno == 219) {return 0xfff5f0}
-  else if (atom.resno == 220) {return 0xfff5f0}
-  else if (atom.resno == 221) {return 0xfff5f0}
-  }})
-
-
-// Create NGL Stage object
-var stage = new NGL.Stage( "vis1" );
-stage.setParameters({backgroundColor: "white"});
-
-
-// Load PDB entry
-stage.loadFile( "rcsb://4fnk", { defaultRepresentation: false } ).then(function (o) {
-  o.setRotation([ 2.25, 0.5, 0.25 ]);
-  o.addRepresentation("surface", {sele: "(:A or :C or :E) and protein", color: AschemeID})
-  o.addRepresentation("surface", {sele: "(:B or :D or :F) and protein", color: BschemeID})
-  o.autoView()
-});
-});
-
-// Create NGL Stage object
-var stage = new NGL.Stage( "vis2" );
-stage.setParameters({backgroundColor: "white"});
-
-// Handle window resizing
-window.addEventListener( "resize", function( event ){
-    stage.handleResize();
-}, false );
-
-
-// Load PDB entry
-stage.loadFile( "rcsb://4fnk", { defaultRepresentation: false } ).then(function (o) {
-  o.setRotation([ 2.25, 0.5, 0.25 ]);
-  o.addRepresentation("surface", {sele: "(:B or :D or :F) and protein", color: BschemeID})
-  o.addRepresentation("surface", {sele: "(:A or :C or :E) and protein", color: AschemeID})
-  o.autoView()
-});
-});
