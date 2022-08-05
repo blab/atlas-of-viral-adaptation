@@ -40,6 +40,18 @@ else {return 0xf0f0f0}
 
 var display_epitopes = {AschemeID:A_epitopes_scheme}
 
+var A_rbd_overlap_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+this.atomColor = function (atom) {
+if (atom.resno == 0) {return 0xf0f0f0}
+else if ([312, 355, 357, 325, 309, 407, 408, 314, 316, 311].includes(atom.resno)) {return 0x21918c}
+else if ([].includes(atom.resno)) {return 0x440154}
+else if ([404, 405, 406, 308, 310, 313, 315, 317, 318, 319, 320, 321, 322, 323, 324, 352, 353, 354, 356, 358, 359].includes(atom.resno)) {return 0xfde725}
+else {return 0xf0f0f0}
+}})
+
+var display_rbd_overlap = {AschemeID:A_rbd_overlap_scheme}
+
+
 
 //Load initial display coloring
 document.addEventListener("DOMContentLoaded", function () {
@@ -57,6 +69,7 @@ function handleChange() {
     if (selectedValue== "display-epitopes") {display_scheme=display_epitopes}
     else if (selectedValue== "display-fixations") {display_scheme=display_fixations}
     else if (selectedValue== "display-surface") {display_scheme=display_surface}
+    else if (selectedValue== "display-rbd-overlap") {display_scheme=display_rbd_overlap}
     let components = stage.getComponentsByName("spike_structure")
     color_protein(components, display_scheme)
 }
