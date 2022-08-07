@@ -61,6 +61,7 @@ stage.loadFile( "rcsb://6u7h", { defaultRepresentation: false, name: "spike_stru
   color_protein(o,display_epitopes)});
 });
 
+
 // JavaScript to handle dropdown changes
 function handleChange() {
     // Get the selected option value
