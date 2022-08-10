@@ -15,7 +15,7 @@
 <body>
   <section class="py-4 text-center container">
     <div class="row py-lg-2">
-      <div class="col-lg-6 col-md-8 mx-auto">
+      <div class="col-lg-8 col-md-8 mx-auto">
         <h1 class="fw-light">Influenza A/H3N2</h1>
       </div>
     </div>
@@ -27,7 +27,7 @@
         <!-- show structure, start with fixations visible -->
         <div id="structure" class="structure mx-auto" style="width:500px; height:500px;"></div>
         <!-- dropdown menu to select structure coloring -->
-        <select id="colorby_dropdown" class="btn btn-light dropdown-toggle w-auto h-25" onchange="handleChange()">
+        <select id="colorby_dropdown" class="btn btn-outline-dark dropdown-toggle w-auto h-25" onchange="handleChange()">
           <option value="display-epitopes">Sites of Immune Evasion</option>
           <option value="display-fixations">Fixation Counts</option>
           <option value="display-surface">Surface Residues</option>
@@ -35,18 +35,37 @@
         </select>
       </div>
 
-      <div class="col my-auto mr-2">
+      <div class="col my-6 mr-2">
         <h3>Predicted residues of immune evasion on the hemagglutinin protein</h3>
-        <p>Epitopes (regions bound by neutralizing antibodies) that have undergone adaptive evolution to escape antibodies should:</p>
-        <ul>
-          <ol>1. have fixed nonsynonymous mutations</ol>
-          <ol>2. be located on the surface of the protein</ol>
-          <ol>3. occur in clusters</ol>
-        </ul>
-        <p>Here, predicted antigenically-evolving epitopes are shown on the HA protein.</p>
-        <p class="text-muted">These epitopes are defined by clusters of 2 or more adjacent (within 8Å) residues, located on the protein's surface (at least 15Å² exposed to solvent), that have experienced at least 1 nonsynonymous fixation event.</p>
-        <p>The drop-down menu can be used to re-color HA by surface residues, by the number of nonsynonymous fixation events per residue, or by overlap between these predicted regions of immune evasion and known epitopes.</p>
-        <p class="text-muted">The known epitopes are listed in <a href="https://www.pnas.org/doi/10.1073/pnas.0701396104">Shih et al 2007</a></p>
+        <p>
+          <!-- <a class="btn btn-light" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">How these residues are predicted</a> -->
+          <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#predictionMethods" aria-expanded="false" aria-controls="predictionMethods">How these residues are predicted</button>
+          <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#howToUse" aria-expanded="false" aria-controls="howToUse">How to use this page</button>
+        </p>
+        <div class="row">
+          <div class="col">
+            <div class="collapse multi-collapse" id="predictionMethods">
+              <div>
+                <p>Epitopes (regions bound by neutralizing antibodies) that have undergone adaptive evolution to escape antibodies should:</p>
+                <ul>
+                  <ol>1. have fixed nonsynonymous mutations</ol>
+                  <ol>2. be located on the surface of the protein</ol>
+                  <ol>3. occur in clusters</ol>
+                </ul>
+                <p>Here, predicted antigenically-evolving epitopes are shown on the HA protein.</p>
+                <p class="text-muted">These epitopes are defined by clusters of 2 or more adjacent (within 8Å) residues, located on the protein's surface (at least 15Å² exposed to solvent), that have experienced at least 1 nonsynonymous fixation event.</p>
+              </div>
+            </div>
+
+
+            <div class="collapse multi-collapse" id="howToUse">
+              <div>
+                <p>The drop-down menu can be used to re-color HA by surface residues, by the number of nonsynonymous fixation events per residue, or by the overlap between predicted sites of immune escape and known epitopes.</p>
+                <p class="text-muted">The known epitopes are listed in <a href="https://www.pnas.org/doi/10.1073/pnas.0701396104">Shih et al 2007</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
 
@@ -54,6 +73,8 @@
   <script src="https://unpkg.com/ngl@0.10.4/dist/ngl.js"></script>
   <script src="./assets/structures.js"></script>
   <!-- for bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
