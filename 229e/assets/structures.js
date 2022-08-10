@@ -43,9 +43,9 @@ var display_epitopes = {AschemeID:A_epitopes_scheme}
 var A_rbd_overlap_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
 this.atomColor = function (atom) {
 if (atom.resno == 0) {return 0xf0f0f0}
-else if ([312, 355, 357, 325, 309, 407, 408, 314, 316, 311].includes(atom.resno)) {return 0x21918c}
-else if ([].includes(atom.resno)) {return 0x440154}
-else if ([404, 405, 406, 308, 310, 313, 315, 317, 318, 319, 320, 321, 322, 323, 324, 352, 353, 354, 356, 358, 359].includes(atom.resno)) {return 0xfde725}
+else if ([312, 355, 357, 325, 309, 407, 408, 314, 316, 311].includes(atom.resno)) {return 0xff5000}
+else if ([].includes(atom.resno)) {return 0xffd000}
+else if ([404, 405, 406, 308, 310, 313, 315, 317, 318, 319, 320, 321, 322, 323, 324, 352, 353, 354, 356, 358, 359].includes(atom.resno)) {return 0x6a6a6a}
 else {return 0xf0f0f0}
 }})
 

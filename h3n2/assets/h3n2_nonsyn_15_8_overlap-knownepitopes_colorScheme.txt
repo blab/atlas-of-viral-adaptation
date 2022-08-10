@@ -1,9 +1,9 @@
 var A_epitope_overlap_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
 this.atomColor = function (atom) {
 if (atom.resno == 0) {return 0xf0f0f0}
-else if ([131, 133, 135, 137, 142, 143, 144, 145, 275, 276, 278, 25, 155, 156, 157, 158, 159, 160, 33, 163, 299, 172, 173, 50, 307, 53, 54, 57, 188, 189, 62, 192, 193, 196, 197, 75, 78, 207, 82, 83, 213, 92, 94, 225, 226, 227, 248, 121, 122, 124, 126].includes(atom.resno)) {return 0x21918c}
-else if ([198, 171, 140, 45, 48, 212, 311, 312, 222].includes(atom.resno)) {return 0x440154}
-else if ([2, 3, 260, 5, 262, 271, 146, 22, 164, 174, 186, 190, 63, 67, 201, 202, 81, 217, 106, 242, 244].includes(atom.resno)) {return 0xfde725}
+else if ([131, 133, 135, 137, 142, 143, 144, 145, 275, 276, 278, 25, 155, 156, 157, 158, 159, 160, 33, 163, 299, 172, 173, 50, 307, 53, 54, 57, 188, 189, 62, 192, 193, 196, 197, 75, 78, 207, 82, 83, 213, 92, 94, 225, 226, 227, 248, 121, 122, 124, 126].includes(atom.resno)) {return 0xff5000}
+else if ([198, 171, 140, 45, 48, 212, 311, 312, 222].includes(atom.resno)) {return 0xffd000}
+else if ([2, 3, 260, 5, 262, 271, 146, 22, 164, 174, 186, 190, 63, 67, 201, 202, 81, 217, 106, 242, 244].includes(atom.resno)) {return 0x6a6a6a}
 else {return 0xf0f0f0}
 }})
 
@@ -11,9 +11,9 @@ else {return 0xf0f0f0}
 var B_epitope_overlap_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
 this.atomColor = function (atom) {
 if (atom.resno == 0) {return 0xf0f0f0}
-else if ([].includes(atom.resno)) {return 0x21918c}
-else if ([150, 57, 155, 121].includes(atom.resno)) {return 0x440154}
-else if ([].includes(atom.resno)) {return 0xfde725}
+else if ([].includes(atom.resno)) {return 0xff5000}
+else if ([150, 57, 155, 121].includes(atom.resno)) {return 0xffd000}
+else if ([].includes(atom.resno)) {return 0x6a6a6a}
 else {return 0xf0f0f0}
 }})
 
