@@ -187,3 +187,60 @@ function handleChangeStructure() {
     let components = stage.getComponentsByName("ha_structure")
     color_protein(components, display_scheme)
 }
+
+
+// JavaScript to handle residue input changes
+function handleResidueSelectionHA1() {
+    // Get the selected option value
+    let selectedValue = document.getElementById('select_ha1_residue_input').value;
+
+    // check if selectedValue is in predicted epitope or not.
+    // if it is, color it red, if not, color it light pink
+    if (A_clickable_residues.includes(Number(selectedValue))) {var selected_color= 0xbc141a}
+    else {var selected_color= 0xfc8a6a}
+
+    var A_select_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+    this.atomColor = function (atom) {
+    if (atom.resno == 0) {return 0xf0f0f0}
+    else if (atom.resno == selectedValue) {return selected_color}
+    else if ([25, 33].includes(atom.resno)) {return 0x21918c}
+    else if ([45, 311, 312, 307].includes(atom.resno)) {return 0x2c728e}
+    else if ([48, 50, 275, 53, 276, 54, 57, 278, 82, 83, 78].includes(atom.resno)) {return 0xaddc30}
+    else if ([62, 75, 78, 92, 94, 140, 142, 82, 135, 137, 143, 144, 145].includes(atom.resno)) {return 0x440154}
+    else if ([121, 122, 124, 172, 126, 171, 173, 207].includes(atom.resno)) {return 0x5ec962}
+    else if ([131, 133, 155, 156, 157, 158, 160, 135, 145, 137, 140, 144, 226, 142, 143, 225, 193, 196, 159, 189, 192, 197, 163, 248, 188, 198, 222, 227, 213].includes(atom.resno)) {return 0x3b528b}
+    else if ([212, 213, 248].includes(atom.resno)) {return 0x472d7b}
+    else if ([299, 307, 311].includes(atom.resno)) {return 0x28ae80}
+    else {return 0xf0f0f0}
+    }})
+
+
+    var select_scheme = {AschemeID:A_select_scheme, BschemeID:B_epitopes_scheme}
+    let components = stage.getComponentsByName("ha_structure")
+    color_protein(components, select_scheme)
+}
+
+// JavaScript to handle residue input changes
+function handleResidueSelectionHA2() {
+    // Get the selected option value
+    let selectedValue = document.getElementById('select_ha2_residue_input').value;
+
+    // check if selectedValue is in predicted epitope or not.
+    // if it is, color it red, if not, color it light pink
+    if (B_clickable_residues.includes(Number(selectedValue))) {var selected_color= 0xbc141a}
+    else {var selected_color= 0xfc8a6a}
+
+    var B_select_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+    this.atomColor = function (atom) {
+    if (atom.resno == 0) {return 0xf0f0f0}
+    else if (atom.resno == selectedValue) {return selected_color}
+    else if ([57].includes(atom.resno)) {return 0x28ae80}
+    else if ([121, 155, 150].includes(atom.resno)) {return 0xfde725}
+    else {return 0xf0f0f0}
+    }})
+
+
+    var select_scheme = {AschemeID:A_epitopes_scheme, BschemeID:B_select_scheme}
+    let components = stage.getComponentsByName("ha_structure")
+    color_protein(components, select_scheme)
+}

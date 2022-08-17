@@ -30,12 +30,18 @@
         <!-- show structure, start with fixations visible -->
         <div id="structure" class="structure mx-auto" style="width:500px; height:500px;"></div>
         <!-- dropdown menu to select structure coloring -->
-        <select id="colorby_dropdown" class="btn btn-outline-dark dropdown-toggle w-auto h-25" onchange="handleChangeStructure()">
-          <option value="display-epitopes">Sites of Immune Evasion</option>
-          <option value="display-fixations">Fixation Counts</option>
-          <option value="display-surface">Surface Residues</option>
-          <option value="display-overlap-epitopes">Overlap with Known Epitopes</option>
-        </select>
+        <div class="row">
+          <select id="colorby_dropdown" class="btn btn-outline-dark dropdown-toggle w-auto h-25" onchange="handleChangeStructure()">
+            <option value="display-epitopes">Sites of Immune Evasion</option>
+            <option value="display-fixations">Fixation Counts</option>
+            <option value="display-surface">Surface Residues</option>
+            <option value="display-overlap-epitopes">Overlap with Known Epitopes</option>
+          </select>
+        </div>
+        <div class="row pt-2">
+          <input id="select_ha1_residue_input" class="form-control form-control-sm w-25" type="text" placeholder="Select HA1 Res." onchange="handleResidueSelectionHA1()">
+          <input id="select_ha2_residue_input" class="form-control form-control-sm w-25" type="text" placeholder="Select HA2 Res." onchange="handleResidueSelectionHA2()">
+        </div>
       </div>
 
       <div class="col my-6 mr-2">
