@@ -5,7 +5,8 @@ stage.setParameters({backgroundColor: "white"});
 window.addEventListener( "resize", function( event ){stage.handleResize();}, false );
 
 function color_protein(o, display_scheme) {
-  o.addRepresentation("surface", {sele: "(:A or :B or :C) and protein", color: display_scheme.AschemeID})
+  o.addRepresentation("surface",{sele: "(:A or :B or :C) and protein", color: display_scheme.AschemeID})
+  o.addRepresentation("cartoon",{sele: "(:A or :B or :C) and protein", color: display_scheme.AschemeID})
   o.autoView()
 }
 
@@ -57,13 +58,63 @@ var display_rbd_overlap = {AschemeID:A_rbd_overlap_scheme}
 document.addEventListener("DOMContentLoaded", function () {
 // Load PDB entry
 stage.loadFile( "rcsb://6u7h", { defaultRepresentation: false, name: "spike_structure"} ).then((o)=>{
-  o.setRotation([1.25, 3.0, 1.5 ]);
+  o.setRotation([1.0, 3.0, 1.5 ]);
   color_protein(o,display_epitopes)});
+});
+
+// remove default hoverPick mouse action
+// this appears to remve the default tooltip behavior
+stage.mouseControls.remove("hoverPick")
+
+// Spike residues in predicted epitopes
+var spike_clickable_residues = [309, 311, 312, 316, 325, 355, 357, 314, 407, 408]
+
+
+// create tooltip element and add to the viewer canvas
+var tooltip = document.createElement("div");
+Object.assign(tooltip.style, {
+  display: "none",
+  position: "relative",
+  zIndex: 10,
+  pointerEvents: "none",
+  backgroundColor: "rgba(0, 0, 0, 0.6)",
+  color: "lightgrey",
+  padding: "0.5em",
+  fontFamily: "sans-serif"
+});
+stage.viewer.container.appendChild(tooltip);
+
+
+// listen to `hovered` signal to move tooltip around and change its text
+// only label residues that are in predicted epitopes
+stage.signals.hovered.add(function (pickingProxy) {
+  if (pickingProxy && (pickingProxy.atom || pickingProxy.bond)){
+    var atom = pickingProxy.atom || pickingProxy.closestBondAtom;
+    var cp = pickingProxy.canvasPosition;
+
+    if (spike_clickable_residues.includes(atom.resno)){
+      tooltip.innerText = "Spike " + atom.resno;
+      tooltip.style.bottom = cp.y  + "px";
+      tooltip.style.left = cp.x  + "px";
+      console.log(tooltip.style.left);
+      tooltip.style.display = "inline-block";}
+    else {tooltip.style.display = "none";}
+  }else{
+    tooltip.style.display = "none";
+  }
+});
+
+// click on residue to redirect to nextstrain build, colored by genotype at residue
+stage.signals.clicked.add(function (pickingProxy) {
+  if (pickingProxy && (pickingProxy.atom || pickingProxy.bond)){
+    var atom = pickingProxy.atom || pickingProxy.closestBondAtom;
+    if (spike_clickable_residues.includes(atom.resno)){window.open(`https://nextstrain.org/groups/blab/`, '_blank')}
+  }
 });
 
 
 // JavaScript to handle dropdown changes
-function handleChange() {
+function handleChangeStructure() {
     // Get the selected option value
     let selectedValue = document.getElementById('colorby_dropdown').value;
     var display_scheme
@@ -73,4 +124,29 @@ function handleChange() {
     else if (selectedValue== "display-rbd-overlap") {display_scheme=display_rbd_overlap}
     let components = stage.getComponentsByName("spike_structure")
     color_protein(components, display_scheme)
+}
+
+// JavaScript to handle residue input changes
+function handleResidueSelection() {
+    // Get the selected option value
+    let selectedValue = document.getElementById('select_spike_residue_input').value;
+
+    // check if selectedValue is in predicted epitope or not.
+    // if it is, color it red, if not, color it light pink
+    if (spike_clickable_residues.includes(Number(selectedValue))) {var selected_color= 0xbc141a}
+    else {var selected_color= 0xfc8a6a}
+
+
+    var A_select_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+    this.atomColor = function (atom) {
+    if (atom.resno == 0) {return 0xf0f0f0}
+    else if (atom.resno == selectedValue) {return selected_color}
+    else if ([309, 311, 312, 316, 325, 355, 357, 314].includes(atom.resno)) {return 0x440154}
+    else if ([407, 408].includes(atom.resno)) {return 0xfde725}
+    else {return 0xf0f0f0}
+    }})
+
+    var select_scheme = {AschemeID:A_select_scheme}
+    let components = stage.getComponentsByName("spike_structure")
+    color_protein(components, select_scheme)
 }
