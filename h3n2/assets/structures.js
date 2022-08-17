@@ -7,6 +7,8 @@ window.addEventListener( "resize", function( event ){stage.handleResize();}, fal
 function color_protein(o, display_scheme) {
   o.addRepresentation("surface", {sele: "(:A or :C or :E) and protein", color: display_scheme.AschemeID})
   o.addRepresentation("surface", {sele: "(:B or :D or :F) and protein", color: display_scheme.BschemeID})
+  o.addRepresentation("cartoon", {sele: "(:A or :C or :E) and protein", color: display_scheme.AschemeID})
+  o.addRepresentation("cartoon", {sele: "(:B or :D or :F) and protein", color: display_scheme.BschemeID})
   o.autoView()
 }
 
@@ -107,6 +109,71 @@ stage.loadFile( "rcsb://4fnk", {defaultRepresentation: false, name: "ha_structur
   color_protein(o,display_epitopes)});
 });
 
+// remove default hoverPick mouse action
+// this appears to remve the default tooltip behavior
+stage.mouseControls.remove("hoverPick")
+
+// HA1 residues in predicted epitopes
+var A_clickable_residues = [25, 33, 45, 311, 312, 307, 48, 50, 275, 53, 276, 54, 57, 278,
+  82, 83, 78, 62, 75, 78, 92, 94, 140, 142, 82, 135, 137, 143, 144, 145, 121, 122, 124,
+  172, 126, 171, 173, 207, 131, 133, 155, 156, 157, 158, 160, 135, 145, 137, 140, 144, 226,
+  142, 143, 225, 193, 196, 159, 189, 192, 197, 163, 248, 188, 198, 222, 227, 213, 212, 213,
+  248, 299, 307, 311]
+
+// HA2 residues in predicted epitopes
+var B_clickable_residues = [150, 57, 155, 121]
+
+// create tooltip element and add to the viewer canvas
+var tooltip = document.createElement("div");
+Object.assign(tooltip.style, {
+  display: "none",
+  position: "relative",
+  zIndex: 10,
+  pointerEvents: "none",
+  backgroundColor: "rgba(0, 0, 0, 0.6)",
+  color: "lightgrey",
+  padding: "0.5em",
+  fontFamily: "sans-serif"
+});
+stage.viewer.container.appendChild(tooltip);
+
+
+// listen to `hovered` signal to move tooltip around and change its text
+// only label residues that are in predicted epitopes
+stage.signals.hovered.add(function (pickingProxy) {
+  if (pickingProxy && (pickingProxy.atom || pickingProxy.bond)){
+    var atom = pickingProxy.atom || pickingProxy.closestBondAtom;
+    var cp = pickingProxy.canvasPosition;
+    if (['A','C','E'].includes(atom.chainname)){
+      var chain="HA1"}
+    else {var chain="HA2"}
+    if (chain=="HA1" && A_clickable_residues.includes(atom.resno)){
+      tooltip.innerText = chain + " " + atom.resno;
+      tooltip.style.bottom = cp.y  + "px";
+      tooltip.style.left = cp.x  + "px";
+      console.log(tooltip.style.left);
+      tooltip.style.display = "inline-block";}
+    else if (chain=="HA2" && B_clickable_residues.includes(atom.resno)){
+      tooltip.innerText = chain + " " + atom.resno;
+      tooltip.style.bottom = cp.y  + "px";
+      tooltip.style.left = cp.x  + "px";
+      tooltip.style.display = "inline-block";}
+    else {tooltip.style.display = "none";}
+  }else{
+    tooltip.style.display = "none";
+  }
+});
+
+// click on residue to redirect to nextstrain build, colored by genotype at residue
+stage.signals.clicked.add(function (pickingProxy) {
+  if (pickingProxy && (pickingProxy.atom || pickingProxy.bond)){
+    var atom = pickingProxy.atom || pickingProxy.closestBondAtom;
+    if (['A','C','E'].includes(atom.chainname)){var chain="HA1"}
+    else {var chain="HA2"}
+    if (chain=="HA1" && A_clickable_residues.includes(atom.resno)){window.open(`https://nextstrain.org/groups/blab/flu/seasonal/h3n2/ha/60y?c=gt-${chain}_${atom.resno}`, '_blank')}
+    else if (chain=="HA2" && B_clickable_residues.includes(atom.resno)){window.open(`https://nextstrain.org/groups/blab/flu/seasonal/h3n2/ha/60y?c=gt-${chain}_${atom.resno}`, '_blank')}
+  }
+});
 
 // JavaScript to handle dropdown changes
 function handleChange() {
