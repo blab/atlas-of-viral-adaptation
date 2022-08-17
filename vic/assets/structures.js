@@ -7,6 +7,8 @@ window.addEventListener( "resize", function( event ){stage.handleResize();}, fal
 function color_protein(o, display_scheme) {
   o.addRepresentation("surface", {sele: "(:A or :C or :E) and protein", color: display_scheme.AschemeID})
   o.addRepresentation("surface", {sele: "(:B or :D or :F) and protein", color: display_scheme.BschemeID})
+  o.addRepresentation("cartoon", {sele: "(:A or :C or :E) and protein", color: display_scheme.AschemeID})
+  o.addRepresentation("cartoon", {sele: "(:B or :D or :F) and protein", color: display_scheme.BschemeID})
   o.autoView()
 }
 
@@ -81,8 +83,71 @@ stage.loadFile( "rcsb://4nrj", { defaultRepresentation: false, name: "ha_structu
   color_protein(o,display_epitopes)});
 });
 
+// remove default hoverPick mouse action
+// this appears to remve the default tooltip behavior
+stage.mouseControls.remove("hoverPick")
+
+// HA1 residues in predicted epitopes
+var A_clickable_residues = [48, 80, 116, 56, 75, 88, 235, 238, 137,
+  150, 146, 148, 149, 146, 148, 149, 150, 172, 175, 183, 255]
+
+// HA2 residues in predicted epitopes
+var B_clickable_residues = []
+
+// create tooltip element and add to the viewer canvas
+var tooltip = document.createElement("div");
+Object.assign(tooltip.style, {
+  display: "none",
+  position: "relative",
+  zIndex: 10,
+  pointerEvents: "none",
+  backgroundColor: "rgba(0, 0, 0, 0.6)",
+  color: "lightgrey",
+  padding: "0.5em",
+  fontFamily: "sans-serif"
+});
+stage.viewer.container.appendChild(tooltip);
+
+
+// listen to `hovered` signal to move tooltip around and change its text
+// only label residues that are in predicted epitopes
+stage.signals.hovered.add(function (pickingProxy) {
+  if (pickingProxy && (pickingProxy.atom || pickingProxy.bond)){
+    var atom = pickingProxy.atom || pickingProxy.closestBondAtom;
+    var cp = pickingProxy.canvasPosition;
+    if (['A','C','E'].includes(atom.chainname)){
+      var chain="HA1"}
+    else {var chain="HA2"}
+    if (chain=="HA1" && A_clickable_residues.includes(atom.resno)){
+      tooltip.innerText = chain + " " + atom.resno;
+      tooltip.style.bottom = cp.y  + "px";
+      tooltip.style.left = cp.x  + "px";
+      console.log(tooltip.style.left);
+      tooltip.style.display = "inline-block";}
+    else if (chain=="HA2" && B_clickable_residues.includes(atom.resno)){
+      tooltip.innerText = chain + " " + atom.resno;
+      tooltip.style.bottom = cp.y  + "px";
+      tooltip.style.left = cp.x  + "px";
+      tooltip.style.display = "inline-block";}
+    else {tooltip.style.display = "none";}
+  }else{
+    tooltip.style.display = "none";
+  }
+});
+
+// click on residue to redirect to nextstrain build, colored by genotype at residue
+stage.signals.clicked.add(function (pickingProxy) {
+  if (pickingProxy && (pickingProxy.atom || pickingProxy.bond)){
+    var atom = pickingProxy.atom || pickingProxy.closestBondAtom;
+    if (['A','C','E'].includes(atom.chainname)){var chain="HA1"}
+    else {var chain="HA2"}
+    if (chain=="HA1" && A_clickable_residues.includes(atom.resno)){window.open(`https://nextstrain.org/groups/blab/flu/seasonal/vic/ha/60y?c=gt-${chain}_${atom.resno}`, '_blank')}
+    else if (chain=="HA2" && B_clickable_residues.includes(atom.resno)){window.open(`https://nextstrain.org/groups/blab/flu/seasonal/vic/ha/60y?c=gt-${chain}_${atom.resno}`, '_blank')}
+  }
+});
+
 // JavaScript to handle dropdown changes
-function handleChange() {
+function handleChangeStructure() {
     // Get the selected option value
     let selectedValue = document.getElementById('colorby_dropdown').value;
     var display_scheme
@@ -91,4 +156,34 @@ function handleChange() {
     else if (selectedValue== "display-surface") {display_scheme=display_surface}
     let components = stage.getComponentsByName("ha_structure")
     color_protein(components, display_scheme)
+}
+
+// JavaScript to handle residue input changes
+function handleResidueSelectionHA1() {
+    // Get the selected option value
+    let selectedValue = document.getElementById('select_ha1_residue_input').value;
+
+    // check if selectedValue is in predicted epitope or not.
+    // if it is, color it red, if not, color it light pink
+    if (A_clickable_residues.includes(Number(selectedValue))) {var selected_color= 0xbc141a}
+    else {var selected_color= 0xfc8a6a}
+
+    var A_select_scheme = NGL.ColormakerRegistry.addScheme(function (params) {
+    this.atomColor = function (atom) {
+    if (atom.resno == 0) {return 0xf0f0f0}
+    else if (atom.resno == selectedValue) {return selected_color}
+    else if ([48, 80, 116].includes(atom.resno)) {return 0x440154}
+    else if ([56, 75].includes(atom.resno)) {return 0x21918c}
+    else if ([88, 235, 238].includes(atom.resno)) {return 0x35b779}
+    else if ([137, 150, 146, 148, 149].includes(atom.resno)) {return 0x90d743}
+    else if ([146, 148, 149, 150].includes(atom.resno)) {return 0x31688e}
+    else if ([172, 175].includes(atom.resno)) {return 0xfde725}
+    else if ([183, 255].includes(atom.resno)) {return 0x443983}
+    else {return 0xf0f0f0}
+    }})
+
+
+    var select_scheme = {AschemeID:A_select_scheme, BschemeID:B_epitopes_scheme}
+    let components = stage.getComponentsByName("ha_structure")
+    color_protein(components, select_scheme)
 }
