@@ -176,7 +176,7 @@ stage.signals.clicked.add(function (pickingProxy) {
 });
 
 // JavaScript to handle dropdown changes
-function handleChange() {
+function handleChangeStructure() {
     // Get the selected option value
     let selectedValue = document.getElementById('colorby_dropdown').value;
     var display_scheme
