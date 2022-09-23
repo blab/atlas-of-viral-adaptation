@@ -108,7 +108,7 @@ stage.signals.hovered.add(function (pickingProxy) {
 stage.signals.clicked.add(function (pickingProxy) {
   if (pickingProxy && (pickingProxy.atom || pickingProxy.bond)){
     var atom = pickingProxy.atom || pickingProxy.closestBondAtom;
-    if (spike_clickable_residues.includes(atom.resno)){window.open(`https://nextstrain.org/groups/blab/`, '_blank')}
+    if (spike_clickable_residues.includes(atom.resno)){window.open(`https://nextstrain.org/groups/blab/seasonal/corona/229e/spike?c=gt-spike_${atom.resno}`, '_blank')}
   }
 });
 
