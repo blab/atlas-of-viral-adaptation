@@ -34,10 +34,56 @@
   </section>
 
   <div class="container">
+    <div class="row gy-5 mt-2">
+      <div class="col my-auto ml-2 pr-1">
+        <div class="mx-auto">
+          <!-- plot1, start with this one visible -->
+          <div id="plot-1" class="plot">
+            <div id="vis1">
+            </div>
+          </div>
+
+          <!-- plot2, can be made visible by dropdown menu -->
+          <div id="plot-2" class="hidden plot">
+            <div id="vis2">
+            </div>
+          </div>
+        </div>
+
+        <div class="mx-auto">
+          <div class="row pb-3">
+
+            <!-- to select y-axis -->
+            <select id="plots" class="btn btn-light dropdown-toggle w-auto" onchange="handleChange()">
+              <option value="plot-1">Adaptive mutations per codon per year</option>
+              <option value="plot-2">Adaptive mutations per year</option>
+            </select>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col my-2 mr-2">
+        <h3>Rates of adaptation throughout the OC43 genome</h3>
+        <p class="fw-light">Rates of adaptation are calculated on individual genes (or subunits) of the OC43 genome, using the method explained <a href="https://blab.github.io/atlas-of-viral-adaptation/#methodology">here</a>. Using the dropdown menu, rates can be displayed as a per codon rate, or a gene-wide rate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="pt-3">
+        <hr style="width=50%">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
     <div class="row gy-3 mt-1">
       <div class="col my-auto">
         <!-- show structure, start with fixations visible -->
-        <div id="structure" class="structure mx-auto" style="width:500px; height:500px;"></div>
+        <div id="structure" class="structure mx-auto" style="width:730px; height:500px;"></div>
         <!-- dropdown menu to select structure coloring -->
         <div class="row">
           <select id="colorby_dropdown" class="btn btn-outline-dark dropdown-toggle w-auto h-25" onchange="handleChangeStructure()">
@@ -93,52 +139,6 @@
           </div>
         </div>
       </div>
-
-  <div class="row">
-    <div class="col-lg-8 mx-auto">
-      <div class="pt-3">
-        <hr style="width=50%">
-      </div>
-    </div>
-  </div>
-
-
-  <div class="container">
-    <div class="row gy-5 mt-2">
-      <div class="col my-auto ml-2 pr-1">
-        <div class="mx-auto">
-          <!-- plot1, start with this one visible -->
-          <div id="plot-1" class="plot">
-            <div id="vis1">
-            </div>
-          </div>
-
-          <!-- plot2, can be made visible by dropdown menu -->
-          <div id="plot-2" class="hidden plot">
-            <div id="vis2">
-            </div>
-          </div>
-        </div>
-
-        <div class="mx-auto">
-          <div class="row pb-3">
-
-            <!-- to select y-axis -->
-            <select id="plots" class="btn btn-light dropdown-toggle w-auto" onchange="handleChange()">
-              <option value="plot-1">Adaptive mutations per codon per year</option>
-              <option value="plot-2">Adaptive mutations per year</option>
-            </select>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col my-2 mr-2">
-        <h3>Rates of adaptation throughout the OC43 genome</h3>
-        <p class="fw-light">Rates of adaptation are calculated on individual genes (or subunits) of the OC43 genome, using the method explained <a href="https://blab.github.io/atlas-of-viral-adaptation/#methodology">here</a>. Using the dropdown menu, rates can be displayed as a per codon rate, or a gene-wide rate.</p>
-      </div>
-    </div>
-  </div>
 
 
 

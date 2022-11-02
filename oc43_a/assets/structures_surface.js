@@ -5,7 +5,8 @@ stage.setParameters({backgroundColor: "white"});
 window.addEventListener( "resize", function( event ){stage.handleResize();}, false );
 
 function color_protein(o, display_scheme) {
-  o.addRepresentation("spacefill", {sele: "(:A or :B or :C) and protein", color: display_scheme.AschemeID})
+  o.addRepresentation("surface", {sele: "(:A or :B or :C) and protein", color: display_scheme.AschemeID})
+  o.addRepresentation("cartoon",{sele: "(:A or :B or :C) and protein", color: display_scheme.AschemeID})
   o.autoView()
 }
 
