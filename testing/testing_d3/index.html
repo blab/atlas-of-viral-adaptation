@@ -29,22 +29,6 @@
         visibility: hidden;
       }
 
-      .virusCheckboxs {
-        font-size: 12px;
-        width: 1000px;
-        margin: 5px 0px 0px 0
-        }
-
-      .orderingRadio {
-        font-size: 12px;
-         margin: 5px 0px 15px 0
-      }
-
-      .unitsRadio {
-        font-size: 12px;
-        margin: 0px 0px 15px 0
-      }
-
       a:link {
         color: blue;
         background-color: transparent;
@@ -57,33 +41,6 @@
         text-decoration: underline;
       }
     </style>
-
-    <script type="module">
-      import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-
-      import D3ComparisonPlots from "https://api.observablehq.com/d/7c942860e8a6a285.js?v=3";
-
-      const rendersComparison = {
-        "viewof virusOrdering": "#viewof-virusOrdering",
-        "viewof yAxisUnits": "#viewof-yAxisUnits",
-        "viewof virusesToPlot": "#viewof-virusesToPlot",
-        "chartPolymerase": "#chartPolymerase",
-        "chart": "#chartRB"
-      }
-
-
-      const runtimeComparison = new Runtime();
-
-      const mainComparison = runtimeComparison.module(D3ComparisonPlots, name => {
-        const selector = rendersComparison[name];
-        if (selector) {
-              return new Inspector(document.querySelector(selector));
-          } else {
-              return true;
-          }
-      });
-
-    </script>
 
   </head>
 
@@ -98,27 +55,14 @@
       </div>
     </section>
 
+    <div>
+      <input type="radio" name="ordering" value="By Viral Family" checked="checked">By Viral Family<br>
+      <input type="radio" name="ordering" value="By Rate">By Rate<br>
+    </div>
+
 
     <!-- Rates comparison plots -->
-    <!-- <div id="plot" class="col-lg-10 pt-0 mx-auto"></div> -->
-    <div id="plots" class="col-lg-10 pt-0 mx-auto">
-      <div id="chartPolymerase"></div>
-      <div id="chartRB"></div>
-      <div id="tooltip"></div>
-    </div>
-    <div id="userControls" class="col-lg-9 mx-auto">
-      <div class="row">
-        <div class="col-sm-9">
-          <div id="viewof-virusOrdering" class="orderingRadio"></div>
-          <div id="viewof-yAxisUnits" class="unitsRadio"></div>
-        </div>
-        <div class="col-md-9">
-          <div id="viewof-virusesToPlot" class="virusCheckboxs"></div>
-        </div>
-      </div>
-    </div>
-
-
+    <div id="plot" class="col-lg-10 pt-0 mx-auto"></div>
 
     <!-- Text explaining project -->
     <div class="row">
@@ -179,7 +123,7 @@
     <!-- for mathy script -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- <script src = "./assets/rateComparisonPlots.js"></script> -->
+    <script src = "./assets/rateComparisonPlots.js"></script>
 
   </body>
 </html>

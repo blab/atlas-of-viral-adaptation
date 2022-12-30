@@ -55,14 +55,120 @@
       </div>
     </section>
 
-    <!-- <div>
-      <input type="radio" name="ordering" value="By Viral Family" checked="checked" onclick="update('By Viral Family')">By Viral Family<br>
-      <input type="radio" name="ordering" value="By Rate" onclick="update('By Rate')">By Rate<br>
-    </div> -->
-
 
     <!-- Rates comparison plots -->
-    <div id="plot" class="col-lg-10 pt-0 mx-auto"></div>
+    <div id="polymerasePlot" class="col-lg-10 pt-0 mx-auto"></div>
+    <div id="rbPlot" class="col-lg-10 pt-0 mx-auto"></div>
+
+
+    <div class = "row">
+      <div id="orderingSelectors" class="form-radio form-radio-inline">
+        <label for="ordering" class="col-sm-4">Order to plot viruses:</label>
+        <div>
+          <input type="radio" name="ordering" value="By Viral Family" checked="checked">By Viral Family
+          <input type="radio" name="ordering" value="By Rate">By Rate
+        </div>
+      <!-- <div>
+      <div id="rateUnits" class="form-radio form-radio-inline"> -->
+      <label for="rateUnits" class="col-sm-4">Units of rate:</label>
+        <div>
+          <input type="radio" name="rateUnits" value="Mutations per Codon per Year" checked="checked">Mutations per Codon per Year
+          <input type="radio" name="rateUnits" value="Mutations per Year">Mutations per Year
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <label for="virusesToView">Viruses to plot:</label>
+      <form method="post" id="virusesToView">
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Influenza A/H3N2" checked> Influenza A/H3N2
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView"  value="Influenza A/H1N1pdm" checked> Influenza A/H1N1pdm
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Influenza B/Vic" checked> Influenza B/Vic
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Influenza B/Yam" checked> Influenza B/Yam
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Influenza C/Yamagata" checked> Influenza C/Yamagata
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Measles" checked> Measles
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Mumps" checked> Mumps
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Parainfluenza-1" checked> Parainfluenza-1
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Parainfluenza-3" checked> Parainfluenza-3
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="RSV-A" checked> RSV-A
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="RSV-B" checked> RSV-B
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="OC43-A" checked> OC43-A
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="229E" checked> 229E
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="NL63" checked> NL63
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Dengue 1-I" checked> Dengue 1-I
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Dengue 2-AA" checked> Dengue 2-AA
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Dengue 3-III" checked> Dengue 3-III
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Dengue 4-II" checked> Dengue 4-II
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Rotavirus A/P[8]" checked> Rotavirus A/P[8]
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Rotavirus A/P[4]" checked> Rotavirus A/P[4]
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Norovirus GII.4" checked> Norovirus GII.4
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Enterovirus D68" checked> Enterovirus D68
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Hepatitis A-IA" checked> Hepatitis A-IA
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Hepatitis B-D3" checked> Hepatitis B-D3
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Hepatitis B-A2" checked> Hepatitis B-A2
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Adenovirus B-3" checked> Adenovirus B-3
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Adenovirus B-7" checked> Adenovirus B-7
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" name="virusesToView" value="Parvovirus B19-1A" checked> Parvovirus B19-1A
+        </label>
+        <button id="submit-viruses">Plot selected viruses</button>
+        <div id="display-viruses"></div>
+      </form>
+    </div>
 
     <!-- Text explaining project -->
     <div class="row">

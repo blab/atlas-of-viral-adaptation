@@ -29,22 +29,6 @@
         visibility: hidden;
       }
 
-      .virusCheckboxs {
-        font-size: 12px;
-        width: 1000px;
-        margin: 5px 0px 0px 0
-        }
-
-      .orderingRadio {
-        font-size: 12px;
-         margin: 5px 0px 15px 0
-      }
-
-      .unitsRadio {
-        font-size: 12px;
-        margin: 0px 0px 15px 0
-      }
-
       a:link {
         color: blue;
         background-color: transparent;
@@ -56,34 +40,10 @@
         background-color: transparent;
         text-decoration: underline;
       }
+
+      #userSelections {font-size: 11px}
+
     </style>
-
-    <script type="module">
-      import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-
-      import D3ComparisonPlots from "https://api.observablehq.com/d/7c942860e8a6a285.js?v=3";
-
-      const rendersComparison = {
-        "viewof virusOrdering": "#viewof-virusOrdering",
-        "viewof yAxisUnits": "#viewof-yAxisUnits",
-        "viewof virusesToPlot": "#viewof-virusesToPlot",
-        "chartPolymerase": "#chartPolymerase",
-        "chart": "#chartRB"
-      }
-
-
-      const runtimeComparison = new Runtime();
-
-      const mainComparison = runtimeComparison.module(D3ComparisonPlots, name => {
-        const selector = rendersComparison[name];
-        if (selector) {
-              return new Inspector(document.querySelector(selector));
-          } else {
-              return true;
-          }
-      });
-
-    </script>
 
   </head>
 
@@ -100,29 +60,126 @@
 
 
     <!-- Rates comparison plots -->
-    <!-- <div id="plot" class="col-lg-10 pt-0 mx-auto"></div> -->
-    <div id="plots" class="col-lg-10 pt-0 mx-auto">
-      <div id="chartPolymerase"></div>
-      <div id="chartRB"></div>
-      <div id="tooltip"></div>
-    </div>
-    <div id="userControls" class="col-lg-9 mx-auto">
-      <div class="row">
-        <div class="col-sm-9">
-          <div id="viewof-virusOrdering" class="orderingRadio"></div>
-          <div id="viewof-yAxisUnits" class="unitsRadio"></div>
-        </div>
-        <div class="col-md-9">
-          <div id="viewof-virusesToPlot" class="virusCheckboxs"></div>
+    <div id="plot" class="col-lg-10 pt-0 mx-auto row"></div>
+
+    <!-- User can select what viruses to plot, the unit of rates displayed, and the ordering -->
+    <div id="userSelections" class="container">
+      <div class = "row">
+        <div id="orderingSelectors" class="form-radio form-radio-inline">
+          <label for="ordering" class="col-sm-4">Order to plot viruses:</label>
+          <div>
+            <input type="radio" name="ordering" value="By Viral Family" checked="checked">By Viral Family
+            <input type="radio" name="ordering" value="By Rate">By Rate
+          </div>
+        <!-- <div>
+        <div id="rateUnits" class="form-radio form-radio-inline"> -->
+        <label for="ordering" class="col-sm-4">Units of rate:</label>
+          <div>
+            <input type="radio" name="rateUnits" value="Mutations per Codon per Year" checked="checked">Mutations per Codon per Year
+            <input type="radio" name="rateUnits" value="Mutations per Year">Mutations per Year
+          </div>
         </div>
       </div>
+
+      <div class="container">
+        <label for="virusesToView">Viruses to plot:</label>
+        <form method="post" id="virusesToView">
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Influenza A/H3N2" checked> Influenza A/H3N2
+      	  </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView"  value="Influenza A/H1N1pdm" checked> Influenza A/H1N1pdm
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Influenza B/Vic" checked> Influenza B/Vic
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Influenza B/Yam" checked> Influenza B/Yam
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Influenza C/Yamagata" checked> Influenza C/Yamagata
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Measles" checked> Measles
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Mumps" checked> Mumps
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Parainfluenza-1" checked> Parainfluenza-1
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Parainfluenza-3" checked> Parainfluenza-3
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="RSV-A" checked> RSV-A
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="RSV-B" checked> RSV-B
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="OC43-A" checked> OC43-A
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="229E" checked> 229E
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="NL63" checked> NL63
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Dengue 1-I" checked> Dengue 1-I
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Dengue 2-AA" checked> Dengue 2-AA
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Dengue 3-III" checked> Dengue 3-III
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Dengue 4-II" checked> Dengue 4-II
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Rotavirus A/P[8]" checked> Rotavirus A/P[8]
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Rotavirus A/P[4]" checked> Rotavirus A/P[4]
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Norovirus GII.4" checked> Norovirus GII.4
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Enterovirus D68" checked> Enterovirus D68
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Hepatitis A-IA" checked> Hepatitis A-IA
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Hepatitis B-D3" checked> Hepatitis B-D3
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Hepatitis B-A2" checked> Hepatitis B-A2
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Adenovirus B-3" checked> Adenovirus B-3
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Adenovirus B-7" checked> Adenovirus B-7
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="virusesToView" value="Parvovirus B19-1A" checked> Parvovirus B19-1A
+          </label>
+          <button id="submit-viruses">Plot selected viruses</button>
+          <div id="display-viruses"></div>
+        </form>
+      </div>
+
     </div>
 
 
 
     <!-- Text explaining project -->
-    <div class="row">
-      <div class="col-lg-10 mx-auto pt-5">
+    <div>
+      <div id="aboutSection" class="col-lg-10 mx-auto pt-5">
 
         <h5>More about this project</h5>
         <p class="text-muted">Adaptive evolution is evolution in response to a selective pressure that increases fitness.
@@ -179,7 +236,7 @@
     <!-- for mathy script -->
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- <script src = "./assets/rateComparisonPlots.js"></script> -->
+    <script src = "./assets/rateComparisonPlots.js"></script>
 
   </body>
 </html>

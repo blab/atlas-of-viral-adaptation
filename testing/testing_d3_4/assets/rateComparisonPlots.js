@@ -1,5 +1,8 @@
-// get the receptor-binding rates of adaptation
-let receptorBindingDF
+let virusOrdering = 'By Viral Family';
+let yAxisUnits = 'Mutations per Codon per Year';
+let virusesToPlot = ['Influenza A/H3N2', 'Influenza A/H1N1pdm', 'Influenza B/Vic', 'Influenza B/Yam', 'Influenza C/Yamagata', 'Measles', 'Mumps', 'Parainfluenza-1', 'Parainfluenza-3', 'RSV-A', 'RSV-B', 'OC43-A', '229E', 'NL63', 'Dengue 1-I', 'Dengue 2-AA', 'Dengue 3-III', 'Dengue 4-II', 'Rotavirus A/P[8]', 'Rotavirus A/P[4]', 'Norovirus GII.4', 'Enterovirus D68', 'Hepatitis A-IA', 'Hepatitis B-D3', 'Hepatitis B-A2', 'Adenovirus B-3', 'Adenovirus B-7', 'Parvovirus B19-1A'];
+
+
 async function fetchData() {
   receptorBindingDF = await d3.csv("https://raw.githubusercontent.com/blab/atlas-of-viral-adaptation/main/testing_d3/assets/receptor_binding_for_d3.csv");
   polymeraseDF = await d3.csv("https://raw.githubusercontent.com/blab/atlas-of-viral-adaptation/main/testing_d3/assets/polymerase_for_d3.csv");
@@ -8,21 +11,42 @@ async function fetchData() {
 }
 fetchData();
 
-// let virusOrdering = ''
-// d3.selectAll(("input[name='ordering']")).on("change", function(){
-//   testingOrder = this.value;
-//   console.log(virusOrdering)
-// });
 
 
+d3.selectAll(("input[name='ordering']")).on("change", function(){
+  virusOrdering = this.value;
+  makeRateComparisonPlot();
+});
 
-// viewof virusOrdering = Inputs.radio(['By Viral Family', 'By Rate'], {label: "Order of viruses", value: "By Viral Family"})
-// let virusOrdering = 'By Rate';
-let virusOrdering = 'By Viral Family'; // hardcode options for testing
-// viewof yAxisUnits = Inputs.radio(['Mutations per Codon per Year', 'Mutations per Year'], {label: "Y-axis units", value:"Mutations per Codon per Year"})
-let yAxisUnits = 'Mutations per Codon per Year';
-// viewof virusesToPlot = Inputs.checkbox(defaultVirusOrder, {value: defaultVirusOrder, label: "Viruses to Plot"})
-let virusesToPlot = ['Influenza A/H3N2', 'Influenza A/H1N1pdm', 'Influenza B/Vic', 'Influenza B/Yam', 'Influenza C/Yamagata', 'Measles', 'Mumps', 'Parainfluenza-1', 'Parainfluenza-3', 'RSV-A', 'RSV-B', 'OC43-A', '229E', 'NL63', 'Dengue 1-I', 'Dengue 2-AA', 'Dengue 3-III', 'Dengue 4-II', 'Rotavirus A/P[8]', 'Rotavirus A/P[4]', 'Norovirus GII.4', 'Enterovirus D68', 'Hepatitis A-IA', 'Hepatitis B-D3', 'Hepatitis B-A2', 'Adenovirus B-3', 'Adenovirus B-7', 'Parvovirus B19-1A'];
+d3.selectAll(("input[name='rateUnits']")).on("change", function(){
+  yAxisUnits = this.value;
+  makeRateComparisonPlot();
+});
+
+
+let submitViruses = document.getElementById("submit-viruses");
+let userViruses = document.forms["virusesToView"];
+
+// Attach function to handle button click
+submitViruses.addEventListener("click", handleSubmit);
+
+// Function to display selected value on screen
+function handleSubmit(event) {
+  // Avoid page refresh
+  event.preventDefault();
+  let allOptions = userViruses.elements["virusesToView"];
+  let selectedOptions = [];
+  allOptions.forEach((element) => {
+    if (element.checked) {
+      selectedOptions.push(element.value);
+    }
+  });
+
+  virusesToPlot = selectedOptions;
+  // d3.selectAll("#rbPlot").selectAll("svg").remove();
+  // d3.selectAll("#polymerasePlot").selectAll("svg").remove();
+  makeRateComparisonPlot();
+}
 
 // plot size attributes
 let height = 400;
@@ -60,6 +84,27 @@ else if (yAxisUnits === 'Mutations per Year'){
     yUnitEnding = 'muts per year'}
 
 let yUnitNames ={'yUnit':yUnit, 'yUpperCI':yUpperCI, 'yLowerCI':yLowerCI, 'yLabelRate':yLabelRate, 'yUnitEnding':yUnitEnding}
+
+
+// need to define this before heightPolyermase is calculated,
+//so found heightPolymerase from observable notebook and hardcoded it here
+let svg
+if (yAxisUnits === 'Mutations per Codon per Year'){
+  svg = d3.select("#polymerasePlot")
+      .append("svg")
+      .attr("viewBox", [0, 0, width, 106.0689]);}
+else if (yAxisUnits === 'Mutations per Year'){
+  svg = d3.select("#polymerasePlot")
+      .append("svg")
+      .attr("viewBox", [0, 0, width, 154.9476]);
+    };
+
+
+const svg2 = d3.select("#rbPlot")
+  .append("svg")
+  .attr("viewBox", [0, 0, width, height]);
+
+
 
 
 
@@ -134,7 +179,6 @@ async function makeRateComparisonPlot() {
   // filter data down to just the viruses that should be plotted
   let receptorBindingData = receptorBindingDF.filter((item) => virusesToPlot.includes(item.legible_name));
   let polymeraseData = polymeraseDF.filter((item) => virusesToPlot.includes(item.legible_name));
-  console.log(polymeraseData)
 
   // height of polymerase plot
   let heightPolymerase = (height-margin.top-margin.bottom) * (d3.max(polymeraseData, d => d[yUnitNames['yUpperCI']])- d3.min(polymeraseData, d => d[yUnitNames['yLowerCI']]))/(d3.max(receptorBindingData, d => d[yUnitNames['yUpperCI']])-d3.min(receptorBindingData, d => d[yUnitNames['yLowerCI']])) + marginPolymerase.bottom + marginPolymerase.top;
@@ -217,12 +261,6 @@ async function makeRateComparisonPlot() {
       .call(d3.axisBottom(x).tickSizeOuter(0).tickValues(xTicks).tickFormat((d,i) => virusOrder[i]));
 
   let chartPolymerase = function(){
-    const svg = d3.select("#plot")
-        .append("svg")
-        .attr("viewBox", [0, 0, width, heightPolymerase]);
-
-    svg.append("g")
-        .call(yAxisPolymerase);
 
     //Add protein label
     svg.append("text")
@@ -235,6 +273,9 @@ async function makeRateComparisonPlot() {
         .attr("y", (marginPolymerase.top/2))
         .text("Polymerase");
 
+    svg.append("g")
+        .call(yAxisPolymerase);
+
 
     svg.append("g")
         .attr("class", "x axis")
@@ -246,40 +287,41 @@ async function makeRateComparisonPlot() {
     const g = svg.append("g")
         .attr("text-anchor", "end")
         .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-      .selectAll();
+        .attr("font-size", 10);
+
 
     // Add vertical dividers between virus types
     if (virusOrdering === "By Viral Family")
       {let textOffsetLine1 = {'Mutations per Codon per Year':0.2, 'Mutations per Year':0.08};
        let textOffsetLine2 = {'Mutations per Codon per Year':0.5, 'Mutations per Year':0.2};
-        g.data(dividerMapper)
-        .enter()
-        .append("line")
-        .style("stroke-width", 1)
-        .style("stroke", "#9a9a9a")
-        .style("stroke-dasharray", ("3, 3"))
-        .attr("x1", d => x(d.xPos))
-        .attr("x2", d => x(d.xPos))
-        .attr("y1", d => yPolymerase(0.0))
-        .attr("y2", d => yPolymerase(0.9));}
+        const vertLine = svg.append('g');
+        vertLine.selectAll("line").data(dividerMapper)
+          .enter()
+          .append('line')
+          .style("stroke", "#9a9a9a")
+          .style("stroke-dasharray", ("3, 3"))
+          .attr("x1", d => x(d.xPos))
+          .attr("x2", d => x(d.xPos))
+          .attr("y1", d => yPolymerase(0.0))
+          .attr("y2", d => yPolymerase(0.9))
+      };
 
     // Add error viruses for each virus
-    g.data(polymeraseData)
-      .enter()
-      .append("line")
-      .style("stroke-width", 1)
-      .style("stroke", function(d){return colorsPolymerase(d)})
-      .attr("x1", d => x(d.xPos))
-      .attr("x2", d => x(d.xPos))
-      .attr("y1", d => yPolymerase(d[yUnitNames['yLowerCI']]))
-      .attr("y2", d => yPolymerase(d[yUnitNames['yUpperCI']]));
+    g.selectAll("line")
+      .data(polymeraseData)
+      .join("line")
+        .style("stroke-width", 1)
+        .style("stroke", function(d){return colorsPolymerase(d)})
+        .attr("x1", d => x(d.xPos))
+        .attr("x2", d => x(d.xPos))
+        .attr("y1", d => yPolymerase(d[yUnitNames['yLowerCI']]))
+        .attr("y2", d => yPolymerase(d[yUnitNames['yUpperCI']]));
 
 
-    // Add point per virus
-    g.data(polymeraseData)
-      .enter()
-      .append("circle")
+      // Add point per virus
+    g.selectAll("circle")
+      .data(polymeraseData)
+      .join("circle")
         .attr("cx", d => x(d.xPos))
         .attr("cy", d => yPolymerase(d[yUnitNames['yUnit']]))
         .attr("fill", function(d){return colorsPolymerase(d)})
@@ -287,20 +329,15 @@ async function makeRateComparisonPlot() {
         .on("click", function(event, d){window.open("https://blab.github.io/atlas-of-viral-adaptation/" +mapToUrl[d.legible_name], '_blank')});
 
 
+
     return svg.node();
   }
 
   // make receptor-binding comparison plot
   let chart = function (){
-    const svg = d3.select("#plot")
-      .append("svg")
-      .attr("viewBox", [0, 0, width, height]);
-
-    svg.append("g")
-        .call(yAxis);
 
     //Add protein label
-    svg.append("text")
+    svg2.append("text")
         .attr("font-size", 16)
         .attr("text-anchor", "start")
         .attr("font-family", "sans-serif")
@@ -310,8 +347,11 @@ async function makeRateComparisonPlot() {
         .attr("y", (margin.top/2))
         .text("Receptor-Binding");
 
+    svg2.append("g")
+        .call(yAxis);
+
     //Add y-axis label
-    svg.append("text")
+    svg2.append("text")
         .attr("font-size", 14)
         .attr("transform", "rotate(-90)")
         .attr("text-anchor", "middle")
@@ -322,7 +362,7 @@ async function makeRateComparisonPlot() {
         .text("Rate of Adaptation");
 
     //Add y-axis units
-    svg.append("text")
+    svg2.append("text")
         .attr("font-size", 9)
         .attr("transform", "rotate(-90)")
         .attr("text-anchor", "middle")
@@ -332,7 +372,7 @@ async function makeRateComparisonPlot() {
         .attr("y", margin.left/2 + 5)
         .text(yUnitNames['yLabelRate']);
 
-    svg.append("g")
+    svg2.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
@@ -343,43 +383,49 @@ async function makeRateComparisonPlot() {
         .attr("transform", "rotate(270)")
         .style("text-anchor", "end");
 
-    const g = svg.append("g")
+    const g = svg2.append("g")
         .attr("text-anchor", "end")
         .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-      .selectAll();
+        .attr("font-size", 10);
 
     // Add vertical dividers between virus types
     if (virusOrdering === "By Viral Family")
       {let textOffsetLine1 = {'Mutations per Codon per Year':0.2, 'Mutations per Year':0.08};
        let textOffsetLine2 = {'Mutations per Codon per Year':0.5, 'Mutations per Year':0.2};
-        g.data(dividerMapper)
-        .enter()
-        .append("line")
-        .style("stroke-width", 1)
-        .style("stroke", "#9a9a9a")
-        .style("stroke-dasharray", ("3, 3"))
-        .attr("x1", d => x(d.xPos))
-        .attr("x2", d => x(d.xPos))
-        .attr("y1", d => y(0.0))
-        .attr("y2", d => y(d.yMax));
+        const vertLine = svg2.append('g');
+        vertLine.selectAll("line")
+          .data(dividerMapper)
+          .enter()
+          .append('line')
+          .style("stroke-width", 1)
+          .style("stroke", "#9a9a9a")
+          .style("stroke-dasharray", ("3, 3"))
+          .attr("x1", d => x(d.xPos))
+          .attr("x2", d => x(d.xPos))
+          .attr("y1", d => y(0.0))
+          .attr("y2", d => y(d.yMax));
 
       //Add text next to dividers, left
-      g.data(dividerMapper)
+      vertLine.selectAll('text')
+        .data(dividerMapper)
         .enter()
         .append("text")
           .style("font-size", d => d.fontSize)
+          .attr("font-family", "sans-serif")
           .style("fill", "#9a9a9a")
           .attr("text-anchor", "end")
           .attr("x", d => x(d.xPos - 0.2))
           .attr("y", d => y(d.yMax - textOffsetLine1[yAxisUnits]))
           .text(d => d.text_left);
 
+      const textLine2 = svg2.append('g');
       // Add second line of text
-      g.data(dividerMapper)
+      textLine2.selectAll('text')
+        .data(dividerMapper)
         .enter()
         .append("text")
           .style("font-size", d => d.fontSize)
+          .attr("font-family", "sans-serif")
           .style("fill", "#9a9a9a")
           .attr("text-anchor", "end")
           .attr("x", d => x(d.xPos - 0.2))
@@ -387,10 +433,13 @@ async function makeRateComparisonPlot() {
           .text("viruses");
 
       //Add text next to dividers, right
-      g.data(dividerMapper)
+      const textLine3 = svg2.append('g');
+      textLine3.selectAll("text")
+        .data(dividerMapper)
         .enter()
         .append("text")
           .style("font-size", d => d.fontSize)
+          .attr("font-family", "sans-serif")
           .style("fill", "#9a9a9a")
           .attr("text-anchor", "start")
           .attr("x", d => x(d.xPos + 0.2))
@@ -398,39 +447,45 @@ async function makeRateComparisonPlot() {
           .text(d => d.text_right);
 
       //Add second line of text
-      g.data(dividerMapper)
+      const textLine4 = svg2.append('g');
+      textLine4.selectAll("text")
+        .data(dividerMapper)
         .enter()
         .append("text")
           .style("font-size", d => d.fontSize)
+          .attr("font-family", "sans-serif")
           .style("fill", "#9a9a9a")
           .attr("text-anchor", "start")
           .attr("x", d => x(d.xPos + 0.2))
           .attr("y", d => y(d.yMax - textOffsetLine2[yAxisUnits]))
-          .text("viruses");}
+          .text("viruses");
+      }
 
     // Add error viruses for each virus
-    g.data(receptorBindingData)
-      .enter()
-      .append("line")
-      .style("stroke-width", 1)
-      .style("stroke", function(d){return colors(d)})
-      .attr("x1", d => x(d.xPos))
-      .attr("x2", d => x(d.xPos))
-      .attr("y1", d => y(d[yUnitNames['yLowerCI']]))
-      .attr("y2", d => y(d[yUnitNames['yUpperCI']]));
+    g.selectAll("line")
+      .data(receptorBindingData)
+      .join("line")
+        .style("stroke-width", 1)
+        .style("stroke", function(d){return colors(d)})
+        .attr("x1", d => x(d.xPos))
+        .attr("x2", d => x(d.xPos))
+        .attr("y1", d => y(d[yUnitNames['yLowerCI']]))
+        .attr("y2", d => y(d[yUnitNames['yUpperCI']]));
 
 
     // Add point per virus
-    g.data(receptorBindingData)
-      .enter()
-      .append("circle")
+    g.selectAll("circle")
+      .data(receptorBindingData)
+      .join("circle")
         .attr("cx", d => x(d.xPos))
         .attr("cy", d => y(d[yUnitNames['yUnit']]))
         .attr("fill", function(d){return colors(d)})
         .attr("r", 7)
         .on("click", function(event, d){window.open("https://blab.github.io/atlas-of-viral-adaptation/" +mapToUrl[d.legible_name], '_blank')});
 
-    return svg.node();}
+
+    return svg2.node();
+    }
 
   // chart();
 
