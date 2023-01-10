@@ -126,6 +126,7 @@
   </head>
 
   <body>
+
     <!--Navigation bar-->
     <div id="nav-placeholder"></div>
     <!--end of Navigation bar-->
@@ -180,7 +181,7 @@
               <p class="text-muted">Adaptive evolution is evolution in response to a selective pressure that increases fitness.
                 In the context of viruses, the rate at which a protein evolves adaptively speaks to its evolutionary potential to undergo antigenic drift (evade antibody recognition), cross-species barriers, or escape drugs.
                 In particular, a high rate of adaptation in a virus that has been endemic in humans for decades indicates that this virus is undergoing continuous adaptation, likely stemming from a changing selective landscape caused by an evolutionary arms race between the virus and its host.
-                Because viral surface proteins are the primary targets of neutralizing antibodies, high rates of adaptation in viral surface protein typically indicates antigenic drift.<p>
+                Because viral surface proteins are the primary targets of neutralizing antibodies, high rates of adaptation in the viral surface protein typically indicates antigenic drift.<p>
 
               <p class="text-muted">Comparing rates of adaptation in the surface proteins of different viruses allows us to hypothesize which viruses evolve antigenically and which do not.
                 From this comparison, we can also glean insight into the prevalence or rarity of antigenic evolution amongst viruses that infect humans.
@@ -196,12 +197,12 @@
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="accordionHeadingTwo" data-bs-parent="#accordionInformation">
             <div class="accordion-body">
-              <p class="text-muted">Each of these viruses contains a polymerase, which we expect to be relatively conserved, as well as surface protein (or protein subunit) that binds to a host-cell receptor.
+              <p class="text-muted">Most viruses contains a polymerase, which we expect to be relatively conserved, as well as surface protein (or protein subunit) that binds to a host-cell receptor.
                 This plot compares the rates of adaptation within these genes.<p>
 
               <p class="text-muted">Hovering your mouse over a point on the plot will indicate which viral protein the rate is calculated for (e.g. for H3N2, polymerase is PB1 and receptor-binding is HA1).
-                The rate, and viral family will also be shown.
-                The units on the y-axis can be changed from "adaptive mutations per codon to year" to "adaptive mutations per year", which gives an estimate of the total number of adaptive mutations that accrue in that gene during a year, using the drop-down menu beneath the plot.
+                The calculated rate of adaptation and metadata about the virus (such as viral family, genome type, etc) will also be shown.
+                The controls below the plot allow the y-axis units to be changed from "adaptive mutations per codon to year" to "adaptive mutations per year", choose whether the x-axis is ordered by viral family or ascending rate of evolution, and select which viruses are displayed on the plot.
                 Clicking on the point will bring you to a virus-specific page which shows the inferred rates of adaptation in other genes of this virus as well as predicted sites of immune evasion in the receptor-binding protein.<p>
             </div>
           </div>
@@ -214,7 +215,8 @@
           </h2>
           <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="accordionHeadingThree" data-bs-parent="#accordionInformation">
             <div class="accordion-body">
-              <p class="text-muted">This panel focuses on viruses that are endemic in humans, and for which there are a minimum of 50 high-quality sequences spanning at least 10 years of time.<p>
+              <p class="text-muted">This panel focuses on viruses that are endemic in humans, and for which there are a minimum of 50 high-quality sequences spanning at least 10 years of time.
+                We have aimed to cover a diverse range of RNA and DNA viruses with genomes under ~50 kiloBases in length. <p>
              </div>
           </div>
         </div>
