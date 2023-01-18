@@ -57,7 +57,7 @@
       .virusCheckboxs {
         font-size: 12px;
         margin: 5px 0px 0px 0;
-        width: 800px;
+        width: 1200px;
         }
 
       .orderingRadio {
@@ -146,24 +146,26 @@
     <!-- Rates comparison plots -->
     <!-- <div id="plot" class="col-lg-10 pt-0 mx-auto"></div> -->
     <div id="plots" class="col-lg-10 pt-2 mx-auto">
-      <div id="chartPolymerase"></div>
-      <div id="chartRB"></div>
-      <div id="tooltipPolymerase"></div>
-      <div id="tooltipRB"></div>
+      <div class="row">
+        <div id="chartPolymerase"></div>
+        <div id="tooltipPolymerase"></div>
+      </div>
+      <div class="row">
+        <div id="chartRB"></div>
+        <div id="tooltipRB"></div>
+      </div>
     </div>
 
-    <div id="userControls" class="row">
-      <div class="col-lg-9 mx-auto">
+    <div id="userControls" class="col-lg-9 ps-4 mx-auto">
         <div class="row">
           <div class="col-sm-9">
             <div id="viewof-virusOrdering" class="orderingRadio"></div>
             <div id="viewof-yAxisUnits" class="unitsRadio"></div>
           </div>
         </div>
-        <div class="col-lg-9">
+        <div class="row">
           <div id="viewof-virusesToPlot" class="virusCheckboxs"></div>
         </div>
-      </div>
     </div>
 
     <!-- Text explaining project -->
