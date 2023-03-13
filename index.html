@@ -94,6 +94,24 @@
         color: blue;
           }
 
+      #load{
+          width:100%;
+          height:100%;
+          position:fixed;
+          z-index:100;
+          background:white
+      }
+
+      #loading-image {
+        z-index: 100;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+      }
+
     </style>
 
     <script type="module">
@@ -126,6 +144,10 @@
   </head>
 
   <body>
+
+    <div id="load" class="col-lg-10 mx-auto">
+      <img id="loading-image" src="assets/Circles-menu-3.gif" alt="Loading..." />
+    </div>
 
     <!--Navigation bar-->
     <div id="nav-placeholder"></div>
@@ -294,6 +316,17 @@
     $(function(){
       $("#nav-placeholder").load("https://raw.githubusercontent.com/blab/atlas-of-viral-adaptation/main/assets/navBar.html");
     });
+    </script>
+    <script>
+      document.onreadystatechange = function () {
+        var state = document.readyState
+        if (state == 'complete') {
+            setTimeout(function(){
+                document.getElementById('interactive');
+               document.getElementById('load').style.visibility="hidden";
+            },1000);
+        }
+      }
     </script>
   </body>
 </html>
