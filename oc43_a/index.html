@@ -116,7 +116,7 @@
     <div class="row pt-0 pb-0">
       <div class="col-lg-8 mx-auto">
         <h1 class="fw-light">Adaptive Evolution of Coronavirus OC43, lineage A</h1>
-        <p class="medium text-muted fw-light">Accompanied by the <a href="https://nextstrain.org/groups/blab/seasonal/corona/oc43/a/spike" target="_blank">Nextstrain OC43-A Spike</a> phylogeny.</p>
+        <p class="medium text-muted fw-light">Accompanied by the <a href="https://nextstrain.org/groups/blab/oc43/A/genome" target="_blank">Nextstrain OC43-A</a> phylogeny.</p>
       </div>
     </div>
   </section>
@@ -147,86 +147,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-8 mx-auto">
-      <div class="pt-1">
-        <hr style="width=50%">
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row gy-3 mt-1">
-      <div class="col-lg-7">
-        <!-- show structure, start with fixations visible -->
-        <div id="structure" class="structure" style="width:730px; height:500px;"></div>
-        <!-- dropdown menu to select structure coloring -->
-        <div class="row">
-          <select id="colorby_dropdown" class="btn btn-outline-dark dropdown-toggle w-auto h-25" onchange="handleChangeStructure()">
-            <option value="display-epitopes">Sites of Immune Evasion</option>
-            <option value="display-fixations">Fixation Counts</option>
-            <option value="display-surface">Surface Residues</option>
-            <option value="display-rbd-overlap">Overlap with RBD</option>
-          </select>
-        </div>
-        <div class="row pt-2">
-          <input id="select_spike_residue_input" class="form-control form-control-sm w-25" type="text" placeholder="Select Spike Res." onchange="handleResidueSelection()">
-        </div>
-      </div>
-
-
-      <div class="col my-6 mr-2">
-        <h6>Residues of immune evasion on the Spike protein</h6>
-        <p class="small fw-light">Predicted by sequence evolution and structural data.</p>
-
-        <div class="container">
-          <div class="accordion accordion-flush" id="accordionInformation">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="accordionHeadingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  How to use this
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="accordionHeadingOne" data-bs-parent="#accordionInformation">
-                <div class="accordion-body small">
-                  <p class="fst-italic">View mutations within escape epitopes during the natural evolution of OC43</p>
-                  <p class="fw-light small">Click on a residue in an escape epitope to open a Nextstrain tree of OC43, colored by genotype at this residue. Hovering over the structure will reveal the residue number.</p>
-                  <p class="fst-italic">Select a particular residue of interest</p>
-                  <p class="fw-light small">Type the residue number in the entry box underneath the structure and then hit enter to see where a particular residue of interest is on the structure, and whether or not it falls within an escape epitope. Residues in escape epitopes will appear red, while residues outside of these epitopes will be pink.</p>
-                  <p class="fst-italic">Color by other information</p>
-                  <p class="fw-light small">The drop-down menu can be used to re-color OC43 Spike by surface residues, by the number of nonsynonymous fixation events per residue, or by the overlap between predicted sites of immune escape and the Receptor-Binding Domain (RBD) loops.</p>
-                  <p class="fw-lighter text-muted small">The RBD was determined by <a href="https://elifesciences.org/articles/51230">Li et al 2019</a></p>
-                  <p class="fst-italic">Rotation</p>
-                  <p class="fw-light small">Click and hold the down the mouse in the white-space near the structure then move the mouse to rotate the structure (left to rotate clockwise, right for counterclockwise, up to bring foward the top, and down to bring forward the bottom).</p>
-                  <p class="fst-italic">Zoom</p>
-                  <p class="fw-light small">Zoom in by scrolling up while the mouse is on or near the structure, zoom out by scrolling down.</p>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="accordionHeadingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  How these sites are predicted
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="accordionHeadingTwo" data-bs-parent="#accordionInformation">
-                <div class="accordion-body small">
-                  <p class="fw-light small">Epitopes (regions bound by neutralizing antibodies) that have undergone adaptive evolution to escape antibodies should:</p>
-                  <ul class="fw-light small">
-                    <ol>1. have fixed nonsynonymous mutations</ol>
-                    <ol>2. be located on the surface of the protein</ol>
-                    <ol>3. occur in clusters</ol>
-                  </ul>
-                  <p class="fw-light small">Here, predicted antigenically-evolving epitopes are shown on the Spike protein.</p>
-                  <p class="fw-lighter text-muted small">These epitopes are defined by clusters of 2 or more adjacent (within 8Å) residues, located on the protein's surface (at least 15Å² exposed to solvent), that have experienced at least 1 nonsynonymous fixation event.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
     <div class="col-lg-10 mx-auto">
@@ -237,10 +157,6 @@
     </div>
   </div>
 
-
-
-  <script src="https://unpkg.com/ngl@0.10.4/dist/ngl.js"></script>
-  <script src="./assets/structures.js"></script>
 
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <!-- for bootstrap -->
