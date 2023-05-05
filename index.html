@@ -65,6 +65,11 @@
          margin: 5px 0px 15px 0
       }
 
+      .methodRadio {
+        font-size: 12px;
+         margin: 5px 0px 15px 0
+      }
+
       .unitsRadio {
         font-size: 12px;
         margin: 0px 0px 15px 0
@@ -117,9 +122,10 @@
     <script type="module">
       import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 
-      import D3ComparisonPlots from "https://api.observablehq.com/d/7c942860e8a6a285.js?v=3";
+      import D3ComparisonPlots from "https://api.observablehq.com/d/4a7bbf1ba707457e.js?v=3";
 
       const rendersComparison = {
+        "viewof method": "#viewof-method",
         "viewof virusOrdering": "#viewof-virusOrdering",
         "viewof yAxisUnits": "#viewof-yAxisUnits",
         "viewof virusesToPlot": "#viewof-virusesToPlot",
@@ -181,6 +187,7 @@
     <div id="userControls" class="col-lg-9 ps-4 mx-auto">
         <div class="row">
           <div class="col-sm-9">
+            <div id="viewof-method" class="methodRadio"></div>
             <div id="viewof-virusOrdering" class="orderingRadio"></div>
             <div id="viewof-yAxisUnits" class="unitsRadio"></div>
           </div>
