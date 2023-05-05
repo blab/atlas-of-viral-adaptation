@@ -41,6 +41,11 @@
        margin: 5px 0px 15px 0
     }
 
+    .methodRadio {
+      font-size: 14px;
+       margin: 5px 0px 15px 0
+    }
+
     .accordion-button {
       font-size: 14px;
     }
@@ -78,6 +83,7 @@
     import D3ComparisonPlots from "https://api.observablehq.com/d/60278998864865b5.js?v=3";
 
     const rendersComparison = {
+      "viewof method": "#viewof-method",
       "viewof yAxisUnits": "#viewof-yAxisUnits",
       "chart": "#chart"
     }
@@ -125,6 +131,7 @@
 
         <div class="mx-auto">
           <div class="row pb-3">
+            <div id="viewof-method" class="methodRadio"></div>
             <!-- to select y-axis -->
             <div id="viewof-yAxisUnits" class="unitsRadio"></div>
 
