@@ -117,6 +117,10 @@
         transform: translateX(-50%) translateY(-50%);
       }
 
+      #footerText {
+        font-size: 12px;
+      }
+
     </style>
 
     <script type="module">
@@ -300,12 +304,21 @@
       </div>
     </div>
 
+    <!-- footer -->
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <div class="pt-1">
+        <div>
+          <hr style="width=80%">
+        </div>\
+
+        <p class="fw-light text-muted text-center">The analysis and data behind this website can be found in this
+          <a href="https://github.com/blab/adaptive-evolution" target="_blank">repository</a>
+        </p>
+
+        <div>
           <hr style="width=80%">
         </div>
-        <p class="fw-light text-muted text-center">Built by Katie Kistler</p>
+        <p class="fw-light text-muted text-center" id="footerText">Built by Katie Kistler</p>
       </div>
     </div>
 
